@@ -1,3 +1,3 @@
-# k8s book sample code
+# [翔泳社 しくみがわかる Kubernetes] サンプルコード
 
 **手順は追って**
