@@ -11,6 +11,7 @@
 * Azure関連リソースとKubernetes関連リソースをまとめて作成できる、Terraformを主に使います
 * TerraformのModuleはコードの再利用に有用ですが、Azure、Kubernetes、Terraformそれぞれ進化が早いソフトウェアであるため、新/旧、Blue/Greenクラスターでコードや管理を分けたいこともあります。よってこのサンプルではModuleを使っていません
 * Terraformでの管理単位を、共用リソース、AKSクラスター、クラスター上のリソースで分割しています。ライフサイクルとリスクプロファイルが異なるためです
+  * さらにBlue/Greenクラスターで分割しています
 * シークレットは主に環境変数で渡していますが、よりセキュアにするにはAzure Key Vaultもおすすめです
 
 ### chap08-12-all-in-one
