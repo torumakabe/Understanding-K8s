@@ -6,7 +6,7 @@
 
 ## 第3部 実践編
 
-### 設計方針
+### サンプルの設計方針
 
 * Azure関連リソースとKubernetes関連リソースをまとめて作成できる、Terraformを主に使います
 * TerraformのModuleはコードの再利用に有用ですが、Azure、Kubernetes、Terraformそれぞれ進化が早いソフトウェアであるため、新/旧、Blue/Greenクラスターで分けたいことも多いです。よってこのサンプルではModuleを使っていません
