@@ -13,6 +13,7 @@
 * Terraformでの管理単位を、共用リソース、AKSクラスター、クラスター上のリソースで分割しています。ライフサイクルとリスクプロファイルが異なるためです
   * さらにBlue/Greenクラスターで分割しています
 * シークレットは主に環境変数で渡していますが、よりセキュアにするにはAzure Key Vaultもおすすめです
+* サンプルToDoアプリのコンテナーイメージはDocker Hubで公開しています。ソースは[shared/app/todo](https://github.com/ToruMakabe/Understanding-K8s/tree/master/shared/app/todo)にあります
 
 ### chap08-12-all-in-one
 
