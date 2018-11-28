@@ -31,6 +31,7 @@
 
 * 1つのAKSクラスター
 * Cluster Autoscaler
+* NGINX Deploymentマニフェスト (Pending状態のPod作成用)
 
 ### chap10
 
@@ -40,7 +41,7 @@
 * 共有リソースとしてAzure Cosmos DBとAzure Traffic Manager
 * サンプルToDoアプリケーション
 * Kured関連マニフェスト
-* NGINX Deploymentマニフェスト
+* NGINX Deploymentマニフェスト (Cordon/Drainの挙動確認用)
 
 ### chap11
 
