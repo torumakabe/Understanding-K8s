@@ -1,0 +1,18 @@
+# (1) 基本項目
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-tcp
+
+# (2) Podのスペック
+spec:
+
+  # (3) コンテナの仕様
+  containers:
+  - name: goproxy
+    image: k8s.gcr.io/goproxy:0.1
+    livenessProbe:
+      tcpSocket:  # TCPソケット通信によるチェックを行う
+        port: 8080
+      initialDelaySeconds: 15
+      periodSeconds: 20

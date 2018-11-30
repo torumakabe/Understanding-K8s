@@ -1,0 +1,28 @@
+# (1) 基本項目
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: busy-replicaset
+
+# (2) ReplicaSetのスペック
+spec:
+  replicas: 2   # レプリカ数
+  selector:
+    matchLabels:
+      app: busy   # テンプレートの検索条件
+      
+  # (3) Podのテンプレート
+  template:
+    metadata:
+      labels:
+        app: busy
+    spec:
+      containers:
+      - image: busybox   # コンテナイメージの場所
+        name: hpa-container
+        command: ["dd", "if=/dev/zero", "of=/dev/null"]
+        resources:
+          requests:   # リソースの制限
+            cpu: 100m
+          limits:
+            cpu: 100m

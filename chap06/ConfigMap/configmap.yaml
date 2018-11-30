@@ -1,0 +1,9 @@
+# (1) 基本項目
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: project-config
+
+# (2) ConfigMapで設定するデータ
+data:
+    project.id: "hello-kubernetes"

@@ -1,0 +1,27 @@
+# (1) 基本項目
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: photoview-rs
+
+# (2) ReplicaSetのスペック
+spec:
+  replicas: 3   # Podの数
+  selector:   # Podテンプレートの検索条件
+    matchLabels:
+      app: photoview
+
+  # (3) Podテンプレート    
+  template:
+    metadata:
+      labels:
+        app: photoview
+        env: prod
+
+    # (4) Podのスペック 
+    spec:
+      containers:
+      - image: sampleacrregistry.azurecr.io/photo-view:v1.0
+        name: photoview-container
+        ports:
+          - containerPort: 80

@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-a
+  labels:
+    env: test
+    app: photo-view
+spec:
+  containers:
+  - image: nginx
+    name: photoview-container
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-b
+  labels:
+    env: test
+    app: imagetrain
+spec:
+  containers:
+  - image: nginx
+    name: photoview-container
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-c
+  labels:
+    env: test
+    app: prediction
+spec:
+  containers:
+  - image: nginx
+    name: photoview-container
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-d
+  labels:
+    env: stage
+    app: photo-view
+spec:
+  containers:
+  - image: nginx
+    name: photoview-container
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-e
+  labels:
+    env: stage
+    app: imagetrain
+spec:
+  containers:
+  - image: nginx
+    name: photoview-container
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-f
+  labels:
+    env: prod
+    app: photo-view
+spec:
+  containers:
+  - image: nginx
+    name: photoview-container

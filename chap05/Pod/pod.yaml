@@ -1,0 +1,18 @@
+# (1) 基本項目
+apiVersion: v1
+kind: Pod
+metadata:
+  name: photoview-pod   # POdの名前
+  labels:   # Podのラベル
+    app: photo-view
+    env: stage
+
+# (2) Podのスペック
+spec:
+
+  # (3) コンテナの仕様
+  containers:
+  - image: sampleacrregistry.azurecr.io/photo-view:v1.0
+    name: photoview-container
+    ports:
+    - containerPort: 80

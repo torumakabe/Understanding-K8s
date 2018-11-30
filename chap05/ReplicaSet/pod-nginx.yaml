@@ -1,0 +1,13 @@
+# (1) 基本項目
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: photo-view
+
+# (2) Podのスペック
+spec:
+  containers:
+  - image: nginx
+    name: photoview-container

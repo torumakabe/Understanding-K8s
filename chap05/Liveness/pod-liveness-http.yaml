@@ -1,0 +1,26 @@
+# (1) 基本項目
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-http
+
+# (2) Podのスペック
+spec:
+
+  # (3) コンテナの仕様
+  containers:
+  - name: liveness
+    image: k8s.gcr.io/liveness
+    args:
+    - /server
+    livenessProbe:
+      httpGet:  # HTTPリクエストの戻り値によるチェックを行う
+        path: /healthz
+        port: 8080
+        httpHeaders:
+        - name: X-Custom-Header
+          value: Awesome
+      initialDelaySeconds: 10
+      periodSeconds: 5

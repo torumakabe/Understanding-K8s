@@ -1,0 +1,43 @@
+# (1) 基本項目
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rollout-deployment
+
+# (2) Deploymentのスペック
+spec:
+  replicas: 3   # レプリカ数
+  selector:
+    matchLabels:
+      app: photo-view   # テンプレートの検索条件
+
+  # (3) Podのテンプレート
+  template:
+    metadata:
+      labels:
+        app: photo-view
+
+    spec:
+      containers:
+      - image: sampleacrregistry.azurecr.io/photo-view:v1.0   # ここを変更する
+        name: photoview-container   # コンテナ名
+        ports:
+        - containerPort: 80   # ポート番号
+---
+# A. 基本項目
+apiVersion: v1
+kind: Service
+metadata:
+  name: rollout
+
+# B. Serviceのスペック
+spec:
+  type: LoadBalancer
+  ports:   # ポート番号
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  
+  # C. Podの条件(ラベル)
+  selector:
+    app: photo-view

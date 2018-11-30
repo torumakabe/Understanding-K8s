@@ -1,0 +1,18 @@
+# (1) 基本項目
+apiVersion: v1
+kind: Pod
+metadata:
+  name: requests-pod
+  
+# (2) Podのスペック
+spec:
+
+  # (3) コンテナの仕様
+  containers:
+  - image: busybox
+    command: ["dd", "if=/dev/zero", "of=/dev/null"]
+    name: main
+    resources:
+      requests:
+        cpu: 400m
+        memory: 2Gi

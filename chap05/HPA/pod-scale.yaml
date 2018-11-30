@@ -1,0 +1,24 @@
+# (1) 基本項目
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replicaset
+
+# (2) ReplicaSetのスペック
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: photo-view
+
+  # (3) Podテンプレート        
+  template:
+    metadata:
+      labels:
+        app: photo-view
+        
+    # (4) Podのスペック 
+    spec:
+      containers:
+      - image: nginx
+        name: photoview-container

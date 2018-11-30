@@ -1,0 +1,24 @@
+# （1） 基本項目
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+
+# (2) Deploymentのスペック
+spec:
+  replicas: 3   # レプリカ数
+  selector:
+    matchLabels:
+      app: nginx-pod   # テンプレートの検索条件
+
+  # (3) Podのテンプレート
+  template:
+    metadata:
+      labels:
+        app: nginx-pod
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14   # コンテナイメージの場所
+        ports:
+        - containerPort: 80   # ポート番号

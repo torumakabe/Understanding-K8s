@@ -1,0 +1,25 @@
+# (1) 基本項目
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-deployment
+
+# (2) Deploymentのスペック
+spec:
+  replicas: 3   # レプリカ数
+  selector:
+    matchLabels:
+      app: photo-view   # テンプレートの検索条件
+
+  # (3) Podのテンプレート
+  template:
+    metadata:
+      labels:
+        app: photo-view
+        ver: v2.0
+    spec:
+      containers:
+      - image: sampleacrregistry.azurecr.io/photo-view:v2.0   # コンテナイメージの場所
+        name: photoview-container   # コンテナ名
+        ports:
+        - containerPort: 80   # ポート番号

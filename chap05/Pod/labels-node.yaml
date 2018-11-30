@@ -1,0 +1,17 @@
+# (1) 基本項目
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: stage
+
+# (2) Podのスペック
+spec:
+
+  # (3) コンテナの仕様
+  containers:
+  - name: nginx
+    image: nginx
+  nodeSelector:
+    server: webap  # webapというラベルの付いたNodeで実行

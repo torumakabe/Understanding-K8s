@@ -1,0 +1,19 @@
+# (1) 基本項目
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver
+
+# (2) Serviceのスペック
+spec:
+  type: LoadBalancer
+  ports:   # ポート番号
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  
+  # (3) Podの条件(ラベル)
+  selector:
+    app: photo-view
+    ver: v1.0
+

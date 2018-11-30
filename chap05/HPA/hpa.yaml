@@ -1,0 +1,25 @@
+# (1) 基本項目
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: budy-hpa
+
+# (2) HPAのスペック 
+spec:
+  minReplicas: 1   # レプリカ数の最大
+  maxReplicas: 5   # レプリカ数の最小
+
+  # スケールする条件
+  metrics:
+  - resource:
+      name: cpu
+      targetAverageUtilization: 30  # CPUが30%になるよう調整
+    type: Resource
+  
+  #  スケールするReplicaSetの設定
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: busy-replicaset
+
+
