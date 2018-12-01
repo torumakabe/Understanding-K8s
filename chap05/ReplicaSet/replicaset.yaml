@@ -6,7 +6,7 @@ metadata:
 
 # (2) ReplicaSetのスペック
 spec:
-  replicas: 3   # Podの数
+  replicas: 5   # Podの数
   selector:   # Podテンプレートの検索条件
     matchLabels:
       app: photoview

@@ -12,7 +12,7 @@ spec:
 
   # (3) コンテナの仕様
   containers:
-  - image: sampleacrregistry.azurecr.io/photo-view:v1.0
+  - image: sampleacrregistry.azurecr.io/photo-view:v2.0
     name: photoview-container
     ports:
     - containerPort: 80

@@ -12,7 +12,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate: 
-      maxSurge: 50%
+      maxSurge: 30%
       maxUnavailable: 10%
 
   selector:
@@ -26,7 +26,7 @@ spec:
         app: photo-view
     spec:
       containers:
-      - image: asaacrregistry.azurecr.io/photo-view:v1.0   # コンテナイメージの場所
+      - image: asaacrregistry.azurecr.io/photo-view:v2.0   # コンテナイメージの場所
         name: photoview-container   # コンテナ名
         ports:
         - containerPort: 80   # ポート番号

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: webserver
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: webfront
+  template:
+    metadata:
+      labels:
+        app: webfront
+    spec:
+      containers:
+      - image: nginx
+        name: webfront-container
+        ports:
+          - containerPort: 80

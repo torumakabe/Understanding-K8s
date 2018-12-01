@@ -6,7 +6,7 @@ metadata:
 
 # (2) Deploymentのスペック
 spec:
-  replicas: 3   # レプリカ数
+  replicas: 10   # レプリカ数
   selector:
     matchLabels:
       app: photo-view   # テンプレートの検索条件

@@ -6,7 +6,7 @@ metadata:
 
 # (2) Podのスペック
 spec:
-  restartPolicy: OnFailure 
+  #restartPolicy: OnFailure 
   
   # (3) コンテナの仕様
   containers:
