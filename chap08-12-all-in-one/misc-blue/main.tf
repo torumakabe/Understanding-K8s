@@ -6,7 +6,7 @@ data "terraform_remote_state" "shared" {
   backend = "azurerm"
 
   config {
-    storage_account_name = "${var.k8sbook_prefix}tfstate"
+    storage_account_name = "${var.k8sbook_prefix}aiotfstate"
     container_name       = "tfstate-shared"
     key                  = "terraform.tfstate"
   }
@@ -16,8 +16,8 @@ data "terraform_remote_state" "cluster" {
   backend = "azurerm"
 
   config {
-    storage_account_name = "${var.k8sbook_prefix}tfstate"
-    container_name       = "tfstate-cls-blue"
+    storage_account_name = "${var.k8sbook_prefix}aiotfstate"
+    container_name       = "tfstate-cluster-blue"
     key                  = "terraform.tfstate"
   }
 }

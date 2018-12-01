@@ -8,12 +8,14 @@
 
 ### サンプルの設計方針
 
-* Azure関連リソースとKubernetes関連リソースをまとめて作成できる、Terraformを主に使います
-* TerraformのModuleはコードの再利用に有用ですが、Azure、Kubernetes、Terraformそれぞれ進化が早いソフトウェアであるため、新/旧、Blue/Greenクラスターでコードや管理を分けたいこともあります。よってこのサンプルではModuleを使っていません
-* Terraformでの管理単位を、共用リソース、AKSクラスター、クラスター上のリソースで分割しています。ライフサイクルとリスクプロファイルが異なるためです
+* Terraformを主に使います
+  * Azure関連リソースとKubernetes関連リソースをまとめて作成できることを重視しました
+* TerraformのModuleはコードの再利用に有用です。ですが、Azure、Kubernetes、Terraformそれぞれ進化が早いソフトウェアであるため、新/旧、Blue/Greenクラスターでコードや管理を分けたいこともあります。よってこのサンプルではModuleを使っていません
+* Terraformでの管理単位を、共用リソース(shared)、AKSクラスター(cluster-xxx)、クラスター上のリソース(misc-xxx)で分割しています。ライフサイクルとリスクプロファイルが異なるためです
   * さらにBlue/Greenクラスターで分割しています
 * シークレットは主に環境変数で渡していますが、よりセキュアにするにはAzure Key Vaultもおすすめです
 * サンプルToDoアプリのコンテナーイメージはDocker Hubで公開しています。ソースは[shared/app/todo](https://github.com/ToruMakabe/Understanding-K8s/tree/master/shared/app/todo)にあります
+* 実行方法は各章のREADMEをご覧ください
 
 ### chap08-12-all-in-one
 

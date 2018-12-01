@@ -1,9 +1,9 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME=${TF_VAR_k8sbook_prefix}-k8sbook-tfstate-rg
-STORAGE_ACCOUNT_NAME=${TF_VAR_k8sbook_prefix}tfstate
+RESOURCE_GROUP_NAME=${TF_VAR_k8sbook_prefix}-k8sbook-aio-tfstate-rg
+STORAGE_ACCOUNT_NAME=${TF_VAR_k8sbook_prefix}aiotfstate
 CONTAINER_NAME_SHARED=tfstate-shared
-CONTAINER_NAME_CLUSTER_BLUE=tfstate-cls-blue
+CONTAINER_NAME_CLUSTER_BLUE=tfstate-cluster-blue
 CONTAINER_NAME_MISC_BLUE=tfstate-misc-blue
 
 az group create --name $RESOURCE_GROUP_NAME --location japaneast
