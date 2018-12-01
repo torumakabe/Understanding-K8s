@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoapp
+spec:
+  selector:
+    matchLabels:
+      app: todoapp
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: todoapp
+    spec:
+      containers:
+        - name: todoapp
+          image: torumakabe/todo-app:0.0.2
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cosmosdb-secret
+                  key: MONGO_URL
