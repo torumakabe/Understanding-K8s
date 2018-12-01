@@ -32,7 +32,7 @@ terraform destroy -auto-approve ./shared
 
 # Delete Resource Group for Remote State
 RESOURCE_GROUP_NAME=${TF_VAR_k8sbook_prefix}-k8sbook-aio-tfstate-rg
-az group delete -n $RESOURCE_GROUP_NAME
+az group delete -n $RESOURCE_GROUP_NAME -y
 
 # Delete Kubetenetes config
 context=$(kubectl config current-context)
