@@ -32,6 +32,8 @@ terraform init \
 
 terraform apply -auto-approve ./misc-blue
 
+kubectl apply -f ./sampleapp.yaml
+
 # Deploy AKS Clster (Green)
 terraform init \
     -backend-config="storage_account_name=${TF_VAR_k8sbook_prefix}aiotfstate" \
@@ -53,3 +55,5 @@ terraform init \
     ./misc-blue
 
 terraform apply -auto-approve ./misc-green
+
+kubectl apply -f ./sampleapp.yaml

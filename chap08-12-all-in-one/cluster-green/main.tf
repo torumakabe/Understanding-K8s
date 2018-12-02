@@ -43,7 +43,7 @@ resource "azurerm_azuread_service_principal_password" "aks" {
 
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "${data.terraform_remote_state.shared.prefix}-k8sbook-aio-aks-green"
-  kubernetes_version  = "1.11.4"
+  kubernetes_version  = "1.11.5"
   location            = "${data.terraform_remote_state.shared.resource_group_location}"
   resource_group_name = "${data.terraform_remote_state.shared.resource_group_name}"
   dns_prefix          = "${data.terraform_remote_state.shared.prefix}-k8sbook-aio-aks-green"
