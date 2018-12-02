@@ -17,20 +17,20 @@ data "terraform_remote_state" "cluster" {
 
   config {
     storage_account_name = "${var.k8sbook_prefix}aiotfstate"
-    container_name       = "tfstate-cluster-blue"
+    container_name       = "tfstate-cluster-green"
     key                  = "terraform.tfstate"
   }
 }
 
 provider "azurerm" {}
 
-resource "azurerm_traffic_manager_endpoint" "todoapp-blue" {
-  name                = "${var.k8sbook_prefix}-k8sbook-aio-todoapp-blue"
+resource "azurerm_traffic_manager_endpoint" "todoapp-green" {
+  name                = "${var.k8sbook_prefix}-k8sbook-aio-todoapp-green"
   resource_group_name = "${data.terraform_remote_state.shared.resource_group_name}"
   profile_name        = "${data.terraform_remote_state.shared.traffic_manager_profile_name}"
   target              = "${kubernetes_service.todoapp.load_balancer_ingress.0.ip}"
   type                = "externalEndpoints"
-  priority            = 100
+  priority            = 200
 }
 
 provider "kubernetes" {
