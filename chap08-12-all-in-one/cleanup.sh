@@ -3,7 +3,7 @@
 # Destroy Misc Resources (Green)
 terraform init \
     -backend-config="storage_account_name=${TF_VAR_k8sbook_prefix}aiotfstate" \
-    -backend-config="container_name=tfstate-misc" \
+    -backend-config="container_name=tfstate-misc-green" \
     -backend-config="key=terraform.tfstate" \
     -reconfigure \
     ./misc-green
@@ -13,7 +13,7 @@ terraform destroy -auto-approve ./misc-green
 # Destroy AKS Clster (Green)
 terraform init \
     -backend-config="storage_account_name=${TF_VAR_k8sbook_prefix}aiotfstate" \
-    -backend-config="container_name=tfstate-shared" \
+    -backend-config="container_name=tfstate-cluster-green" \
     -backend-config="key=terraform.tfstate" \
     -reconfigure \
     ./cluster-green
@@ -23,7 +23,7 @@ terraform destroy -auto-approve ./cluster-green
 # Destroy Misc Resources (Blue)
 terraform init \
     -backend-config="storage_account_name=${TF_VAR_k8sbook_prefix}aiotfstate" \
-    -backend-config="container_name=tfstate-misc" \
+    -backend-config="container_name=tfstate-misc-blue" \
     -backend-config="key=terraform.tfstate" \
     -reconfigure \
     ./misc-blue
@@ -33,7 +33,7 @@ terraform destroy -auto-approve ./misc-blue
 # Destroy AKS Clster (Blue)
 terraform init \
     -backend-config="storage_account_name=${TF_VAR_k8sbook_prefix}aiotfstate" \
-    -backend-config="container_name=tfstate-shared" \
+    -backend-config="container_name=tfstate-cluster-blue" \
     -backend-config="key=terraform.tfstate" \
     -reconfigure \
     ./cluster-blue
