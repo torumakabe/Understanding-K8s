@@ -1,7 +1,9 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME=${TF_VAR_k8sbook_prefix}-k8sbook-aio-tfstate-rg
-STORAGE_ACCOUNT_NAME=${TF_VAR_k8sbook_prefix}aiotfstate
+CHAP="aio"
+
+RESOURCE_GROUP_NAME=${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-tfstate-rg
+STORAGE_ACCOUNT_NAME=${TF_VAR_k8sbook_prefix}${CHAP}tfstate
 CONTAINER_NAME_SHARED=tfstate-shared
 CONTAINER_NAME_CLUSTER_BLUE=tfstate-cluster-blue
 CONTAINER_NAME_CLUSTER_GREEN=tfstate-cluster-green
