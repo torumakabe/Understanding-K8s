@@ -7,5 +7,4 @@ terraform init \
     -backend-config="container_name=tfstate-shared" \
     -backend-config="key=terraform.tfstate"
 
-#terraform plan
 terraform apply -auto-approve

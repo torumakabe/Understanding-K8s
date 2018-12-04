@@ -7,5 +7,4 @@ terraform init \
     -backend-config="container_name=tfstate-cluster-blue" \
     -backend-config="key=terraform.tfstate"  
 
-#terraform plan
 terraform apply -auto-approve

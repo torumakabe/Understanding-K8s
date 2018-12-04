@@ -3,7 +3,7 @@ provider "azurerm" {}
 data "azurerm_subscription" "current" {}
 
 resource "azurerm_azuread_application" "aks" {
-  name = "${var.prefix}-k8sbook-sp-aks-blue-${var.cluster_type}"
+  name = "${var.prefix}-k8sbook-sp-aks-green-${var.cluster_type}"
 }
 
 resource "azurerm_azuread_service_principal" "aks" {
@@ -41,11 +41,11 @@ resource "null_resource" "delay" {
 resource "azurerm_kubernetes_cluster" "aks" {
   depends_on = ["null_resource.delay"]
 
-  name                = "${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type}"
-  kubernetes_version  = "1.11.4"
+  name                = "${var.prefix}-k8sbook-aio-aks-green-${var.cluster_type}"
+  kubernetes_version  = "1.11.5"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
-  dns_prefix          = "${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type}"
+  dns_prefix          = "${var.prefix}-k8sbook-aio-aks-green-${var.cluster_type}"
 
   agent_pool_profile {
     name            = "default"
@@ -80,7 +80,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   provisioner "local-exec" {
-    command = "az aks get-credentials -g ${var.resource_group_name} -n ${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type} --overwrite-existing --admin --file ~/.kube/${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type}-config"
+    command = "az aks get-credentials -g ${var.resource_group_name} -n ${var.prefix}-k8sbook-aio-aks-green-${var.cluster_type} --overwrite-existing --admin --file ~/.kube/${var.prefix}-k8sbook-aio-aks-green-${var.cluster_type}-config"
   }
 }
 
@@ -110,10 +110,10 @@ resource "azurerm_monitor_metric_alert" "pendning_pods" {
 }
 
 provider "kubernetes" {
-  /* Workaround for definition dependency on AKS cluster */
+  // Workaround for definition dependency on AKS cluster
   host = "${azurerm_kubernetes_cluster.aks.kube_config.0.host}"
 
-  config_path = "~/.kube/${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type}-config"
+  config_path = "~/.kube/${var.prefix}-k8sbook-aio-aks-green-${var.cluster_type}-config"
 
   /*
   client_certificate     = "${data.terraform_remote_state.cluster.client_certificate}"
@@ -145,8 +145,8 @@ resource "kubernetes_service" "todoapp" {
   }
 }
 
-resource "azurerm_traffic_manager_endpoint" "todoapp-blue" {
-  name                = "${var.prefix}-k8sbook-${var.chap}-todoapp-blue-${var.cluster_type}"
+resource "azurerm_traffic_manager_endpoint" "todoapp-green" {
+  name                = "${var.prefix}-k8sbook-${var.chap}-todoapp-green-${var.cluster_type}"
   resource_group_name = "${var.resource_group_name}"
   profile_name        = "${var.traffic_manager_profile_name}"
   target              = "${kubernetes_service.todoapp.load_balancer_ingress.0.ip}"

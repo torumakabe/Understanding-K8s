@@ -1,9 +1,10 @@
 #!/bin/bash
 
-terraform init \
-    -backend-config="storage_account_name=${TF_VAR_k8sbook_prefix}aiotfstate" \
-    -backend-config="container_name=tfstate-cls-green" \
-    -backend-config="key=terraform.tfstate"
+CHAP="aio"
 
-#terraform plan
+terraform init \
+    -backend-config="storage_account_name=${TF_VAR_k8sbook_prefix}${CHAP}tfstate" \
+    -backend-config="container_name=tfstate-cluster-green" \
+    -backend-config="key=terraform.tfstate"  
+
 terraform apply -auto-approve
