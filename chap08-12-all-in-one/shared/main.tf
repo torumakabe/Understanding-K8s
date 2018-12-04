@@ -5,12 +5,12 @@ terraform {
 provider "azurerm" {}
 
 resource "azurerm_resource_group" "shared" {
-  name     = "${var.k8sbook_prefix}-k8sbook-aio-rg"
+  name     = "${var.k8sbook_prefix}-k8sbook-${var.k8sbook_chap}-rg"
   location = "${var.k8sbook_resource_group_location}"
 }
 
 resource "azurerm_cosmosdb_account" "shared" {
-  name                = "${var.k8sbook_prefix}-k8sbook-aio-db"
+  name                = "${var.k8sbook_prefix}-k8sbook-${var.k8sbook_chap}-db"
   location            = "${azurerm_resource_group.shared.location}"
   resource_group_name = "${azurerm_resource_group.shared.name}"
   offer_type          = "Standard"
@@ -36,12 +36,12 @@ resource "azurerm_cosmosdb_account" "shared" {
 }
 
 resource "azurerm_traffic_manager_profile" "shared" {
-  name                   = "${var.k8sbook_prefix}-k8sbook-aio-tm-todoapp"
+  name                   = "${var.k8sbook_prefix}-k8sbook-${var.k8sbook_chap}-tm-todoapp"
   resource_group_name    = "${azurerm_resource_group.shared.name}"
   traffic_routing_method = "Priority"
 
   dns_config {
-    relative_name = "${var.k8sbook_prefix}-k8sbook-aio-todoapp"
+    relative_name = "${var.k8sbook_prefix}-k8sbook-${var.k8sbook_chap}-todoapp"
     ttl           = 60
   }
 
@@ -59,7 +59,7 @@ resource "azurerm_role_assignment" "user01" {
 }
 
 resource "azurerm_log_analytics_workspace" "shared" {
-  name                = "${var.k8sbook_prefix}-k8sbook-aio-workspace"
+  name                = "${var.k8sbook_prefix}-k8sbook-${var.k8sbook_chap}-workspace"
   location            = "${azurerm_resource_group.shared.location}"
   resource_group_name = "${azurerm_resource_group.shared.name}"
   sku                 = "Free"
