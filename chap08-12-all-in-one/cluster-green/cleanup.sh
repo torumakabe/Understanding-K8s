@@ -10,7 +10,3 @@ terraform init \
     -reconfigure
 
 terraform destroy -auto-approve
-
-# Delete Kubetenetes config
-rm ~/.kube/${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-aks-green-primary-config
-rm ~/.kube/${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-aks-green-failover-config

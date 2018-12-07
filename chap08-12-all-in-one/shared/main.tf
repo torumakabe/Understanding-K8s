@@ -79,12 +79,12 @@ resource "azurerm_log_analytics_solution" "shared" {
 }
 
 resource "azurerm_monitor_action_group" "critical" {
-  name                = "Critical"
+  name                = "critical"
   resource_group_name = "${azurerm_resource_group.shared.name}"
-  short_name          = "Critical"
+  short_name          = "critical"
 
   email_receiver {
-    name          = "Admin"
+    name          = "admin"
     email_address = "${var.k8sbook_admin_email_address}"
   }
 }

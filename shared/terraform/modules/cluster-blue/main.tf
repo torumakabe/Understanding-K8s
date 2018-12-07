@@ -27,7 +27,7 @@ resource "azurerm_azuread_service_principal_password" "aks" {
   value                = "${random_string.password.result}"
 }
 
-resource "null_resource" "delay" {
+resource "null_resource" "aadsync_delay" {
   // Wait for AAD async replication
   provisioner "local-exec" {
     command = "sleep 60"
@@ -39,13 +39,13 @@ resource "null_resource" "delay" {
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  depends_on = ["null_resource.delay"]
+  depends_on = ["null_resource.aadsync_delay"]
 
-  name                = "${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type}"
+  name                = "${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}"
   kubernetes_version  = "1.11.4"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
-  dns_prefix          = "${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type}"
+  dns_prefix          = "${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}"
 
   agent_pool_profile {
     name            = "default"
@@ -80,12 +80,30 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   provisioner "local-exec" {
-    command = "az aks get-credentials -g ${var.resource_group_name} -n ${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type} --overwrite-existing --admin --file ~/.kube/${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type}-config"
+    command = "az aks get-credentials -g ${var.resource_group_name} -n ${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type} --overwrite-existing --admin --file ~/.kube/${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}-config"
+  }
+
+  provisioner "local-exec" {
+    when    = "destroy"
+    command = "rm ~/.kube/${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}-config"
+  }
+}
+
+resource "null_resource" "initial_pods_creation_delay" {
+  // Wait for initial pods creation
+  provisioner "local-exec" {
+    command = "sleep 60"
+  }
+
+  triggers = {
+    "before" = "${azurerm_kubernetes_cluster.aks.id}"
   }
 }
 
 resource "azurerm_monitor_metric_alert" "pendning_pods" {
-  name                = "pending_pods"
+  depends_on = ["null_resource.initial_pods_creation_delay"]
+
+  name                = "pending_pods_${azurerm_kubernetes_cluster.aks.name}"
   resource_group_name = "${var.resource_group_name}"
   scopes              = ["${azurerm_kubernetes_cluster.aks.id}"]
   description         = "Action will be triggered when pending pods count is greater than 0."
@@ -110,10 +128,10 @@ resource "azurerm_monitor_metric_alert" "pendning_pods" {
 }
 
 provider "kubernetes" {
-  /* Workaround for definition dependency on AKS cluster */
+  // Workaround for definition dependency on AKS cluster
   host = "${azurerm_kubernetes_cluster.aks.kube_config.0.host}"
 
-  config_path = "~/.kube/${var.prefix}-k8sbook-aio-aks-blue-${var.cluster_type}-config"
+  config_path = "~/.kube/${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}-config"
 
   /*
   client_certificate     = "${data.terraform_remote_state.cluster.client_certificate}"
