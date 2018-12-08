@@ -30,7 +30,7 @@ resource "azurerm_azuread_service_principal_password" "aks" {
 resource "null_resource" "aadsync_delay" {
   // Wait for AAD async replication
   provisioner "local-exec" {
-    command = "sleep 60"
+    command = "sleep 120"
   }
 
   triggers = {
@@ -92,7 +92,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 resource "null_resource" "initial_pods_creation_delay" {
   // Wait for initial pods creation
   provisioner "local-exec" {
-    command = "sleep 60"
+    command = "sleep 180"
   }
 
   triggers = {
