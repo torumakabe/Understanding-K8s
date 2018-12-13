@@ -110,6 +110,7 @@ resource "azurerm_monitor_metric_alert" "pendning_pods" {
 }
 
 provider "kubernetes" {
+  load_config_file       = false
   host                   = "${azurerm_kubernetes_cluster.aks.kube_admin_config.0.host}"
   client_certificate     = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_certificate)}"
   client_key             = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_key)}"
@@ -157,6 +158,64 @@ resource "kubernetes_secret" "cosmosdb" {
 
   data {
     MONGO_URL = "mongodb://${var.cosmosdb_account_name}:${var.cosmosdb_account_primary_master_key}@${var.cosmosdb_account_name}.documents.azure.com:10255/?ssl=true"
+  }
+}
+
+resource "kubernetes_deployment" "todoapp" {
+  metadata {
+    name = "todoapp"
+  }
+
+  spec {
+    replicas = 2
+
+    selector {
+      match_labels {
+        app = "todoapp"
+      }
+    }
+
+    template {
+      metadata {
+        labels {
+          app = "todoapp"
+        }
+      }
+
+      spec {
+        container {
+          image = "torumakabe/todo-app:0.0.2"
+          name  = "todoapp"
+
+          port {
+            container_port = 8080
+          }
+
+          env {
+            name = "MONGO_URL"
+
+            value_from {
+              secret_key_ref {
+                name = "${kubernetes_secret.cosmosdb.metadata.name}"
+                key  = "MONGO_URL"
+              }
+            }
+          }
+
+          resources {
+            limits {
+              cpu    = "250m"
+              memory = "100Mi"
+            }
+
+            requests {
+              cpu    = "250m"
+              memory = "100Mi"
+            }
+          }
+        }
+      }
+    }
   }
 }
 
