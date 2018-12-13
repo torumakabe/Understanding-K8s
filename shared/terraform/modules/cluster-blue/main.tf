@@ -196,7 +196,7 @@ resource "kubernetes_deployment" "todoapp" {
 
             value_from {
               secret_key_ref {
-                name = "${kubernetes_secret.cosmosdb.metadata.name}"
+                name = "cosmosdb-secret"
                 key  = "MONGO_URL"
               }
             }

@@ -161,6 +161,64 @@ resource "kubernetes_secret" "cosmosdb" {
   }
 }
 
+resource "kubernetes_deployment" "todoapp" {
+  metadata {
+    name = "todoapp"
+  }
+
+  spec {
+    replicas = 2
+
+    selector {
+      match_labels {
+        app = "todoapp"
+      }
+    }
+
+    template {
+      metadata {
+        labels {
+          app = "todoapp"
+        }
+      }
+
+      spec {
+        container {
+          image = "torumakabe/todo-app:0.0.2"
+          name  = "todoapp"
+
+          port {
+            container_port = 8080
+          }
+
+          env {
+            name = "MONGO_URL"
+
+            value_from {
+              secret_key_ref {
+                name = "cosmosdb-secret"
+                key  = "MONGO_URL"
+              }
+            }
+          }
+
+          resources {
+            limits {
+              cpu    = "250m"
+              memory = "100Mi"
+            }
+
+            requests {
+              cpu    = "250m"
+              memory = "100Mi"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 resource "kubernetes_secret" "cluster_autoscaler" {
   depends_on = ["azurerm_kubernetes_cluster.aks"]
 
