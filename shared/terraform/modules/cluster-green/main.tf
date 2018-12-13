@@ -1,4 +1,6 @@
-provider "azurerm" {}
+provider "azurerm" {
+  version = "~>1.20.0"
+}
 
 data "azurerm_subscription" "current" {}
 
@@ -28,7 +30,7 @@ resource "azurerm_azuread_service_principal_password" "aks" {
 }
 
 resource "null_resource" "aadsync_delay" {
-  // Wait for AAD async replication
+  // Wait for AAD async global replication
   provisioner "local-exec" {
     command = "sleep 120"
   }
@@ -61,6 +63,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   role_based_access_control {
+    enabled = true
+
     azure_active_directory {
       client_app_id     = "${var.aad_client_app_id}"
       server_app_id     = "${var.aad_server_app_id}"
@@ -78,31 +82,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
       log_analytics_workspace_id = "${var.log_analytics_workspace_id}"
     }
   }
-
-  provisioner "local-exec" {
-    command = "az aks get-credentials -g ${var.resource_group_name} -n ${var.prefix}-k8sbook-${var.chap}-aks-green-${var.cluster_type} --overwrite-existing --admin --file ~/.kube/${var.prefix}-k8sbook-${var.chap}-aks-green-${var.cluster_type}-config"
-  }
-
-  provisioner "local-exec" {
-    when    = "destroy"
-    command = "rm ~/.kube/${var.prefix}-k8sbook-${var.chap}-aks-green-${var.cluster_type}-config"
-  }
-}
-
-resource "null_resource" "initial_pods_creation_delay" {
-  // Wait for initial pods creation
-  provisioner "local-exec" {
-    command = "sleep 180"
-  }
-
-  triggers = {
-    "before" = "${azurerm_kubernetes_cluster.aks.id}"
-  }
 }
 
 resource "azurerm_monitor_metric_alert" "pendning_pods" {
-  depends_on = ["null_resource.initial_pods_creation_delay"]
-
   name                = "pending_pods_${azurerm_kubernetes_cluster.aks.name}"
   resource_group_name = "${var.resource_group_name}"
   scopes              = ["${azurerm_kubernetes_cluster.aks.id}"]
@@ -128,16 +110,10 @@ resource "azurerm_monitor_metric_alert" "pendning_pods" {
 }
 
 provider "kubernetes" {
-  // Workaround for definition dependency on AKS cluster
-  host = "${azurerm_kubernetes_cluster.aks.kube_config.0.host}"
-
-  config_path = "~/.kube/${var.prefix}-k8sbook-${var.chap}-aks-green-${var.cluster_type}-config"
-
-  /*
-  client_certificate     = "${data.terraform_remote_state.cluster.client_certificate}"
-  client_key             = "${data.terraform_remote_state.cluster.client_key}"
-  cluster_ca_certificate = "${data.terraform_remote_state.cluster.cluster_ca_certificate}"
-*/
+  host                   = "${azurerm_kubernetes_cluster.aks.kube_admin_config.0.host}"
+  client_certificate     = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_certificate)}"
+  client_key             = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_key)}"
+  cluster_ca_certificate = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.cluster_ca_certificate)}"
 }
 
 resource "kubernetes_service" "todoapp" {

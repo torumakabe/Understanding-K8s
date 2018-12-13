@@ -12,7 +12,9 @@ data "terraform_remote_state" "shared" {
   }
 }
 
-provider "azurerm" {}
+provider "azurerm" {
+  version = "~>1.20.0"
+}
 
 data "azurerm_subscription" "current" {}
 

@@ -9,5 +9,5 @@ terraform init \
 
 terraform apply -auto-approve
 
-KUBECONFIG=~/.kube/${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-aks-blue-primary-config kubectl apply -f ../todoapp.yaml
-KUBECONFIG=~/.kube/${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-aks-blue-failover-config kubectl apply -f ../todoapp.yaml
+# KUBECONFIG=~/.kube/${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-aks-blue-primary-config kubectl apply -f ../todoapp.yaml
+# KUBECONFIG=~/.kube/${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-aks-blue-failover-config kubectl apply -f ../todoapp.yaml
