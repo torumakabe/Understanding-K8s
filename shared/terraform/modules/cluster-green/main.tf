@@ -64,12 +64,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   role_based_access_control {
     enabled = true
-
-    azure_active_directory {
-      client_app_id     = "${var.aad_client_app_id}"
-      server_app_id     = "${var.aad_server_app_id}"
-      server_app_secret = "${var.aad_server_app_secret}"
-    }
   }
 
   addon_profile {
@@ -111,10 +105,10 @@ resource "azurerm_monitor_metric_alert" "pendning_pods" {
 
 provider "kubernetes" {
   load_config_file       = false
-  host                   = "${azurerm_kubernetes_cluster.aks.kube_admin_config.0.host}"
-  client_certificate     = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_certificate)}"
-  client_key             = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_key)}"
-  cluster_ca_certificate = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.cluster_ca_certificate)}"
+  host                   = "${azurerm_kubernetes_cluster.aks.kube_config.0.host}"
+  client_certificate     = "${base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate)}"
+  client_key             = "${base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_key)}"
+  cluster_ca_certificate = "${base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)}"
 }
 
 resource "kubernetes_service" "todoapp" {
