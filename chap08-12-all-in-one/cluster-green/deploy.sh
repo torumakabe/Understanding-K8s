@@ -8,6 +8,3 @@ terraform init \
     -backend-config="key=terraform.tfstate"  
 
 terraform apply -auto-approve
-
-# KUBECONFIG=~/.kube/${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-aks-green-primary-config kubectl apply -f ../todoapp.yaml
-# KUBECONFIG=~/.kube/${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-aks-green-failover-config kubectl apply -f ../todoapp.yaml
