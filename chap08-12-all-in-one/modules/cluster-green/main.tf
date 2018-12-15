@@ -5,7 +5,7 @@ provider "azurerm" {
 data "azurerm_subscription" "current" {}
 
 resource "azurerm_azuread_application" "aks" {
-  name = "${var.prefix}-k8sbook-sp-aks-green-${var.cluster_type}"
+  name = "${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}"
 }
 
 resource "azurerm_azuread_service_principal" "aks" {

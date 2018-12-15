@@ -19,7 +19,7 @@ provider "azurerm" {
 data "azurerm_subscription" "current" {}
 
 module "primary" {
-  source = "../../shared/terraform/modules/cluster-blue-aad"
+  source = "../modules/cluster-blue-aad"
 
   prefix                              = "${var.k8sbook_prefix}"
   chap                                = "${var.k8sbook_chap}"
@@ -40,7 +40,7 @@ module "primary" {
 }
 
 module "failover" {
-  source = "../../shared/terraform/modules/cluster-blue-aad"
+  source = "../modules/cluster-blue-aad"
 
   prefix                              = "${var.k8sbook_prefix}"
   chap                                = "${var.k8sbook_chap}"
