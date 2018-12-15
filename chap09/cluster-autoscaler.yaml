@@ -136,7 +136,7 @@ spec:
         - --logtostderr=true
         - --cloud-provider=azure
         - --skip-nodes-with-local-storage=false
-        - --nodes=2:5:default
+        - --nodes=1:5:default
         env:
         - name: ARM_SUBSCRIPTION_ID
           valueFrom:

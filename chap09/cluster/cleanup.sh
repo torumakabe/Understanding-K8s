@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CHAP="ch08"
+CHAP="ch09"
 
 # Destroy AKS Clster
 terraform init \
