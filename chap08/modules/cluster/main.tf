@@ -5,7 +5,7 @@ provider "azurerm" {
 data "azurerm_subscription" "current" {}
 
 resource "azurerm_azuread_application" "aks" {
-  name = "${var.prefix}-k8sbook-${var.chap}-sp-aks-blue-${var.cluster_type}"
+  name = "${var.prefix}-k8sbook-${var.chap}-sp-aks-${var.cluster_type}"
 }
 
 resource "azurerm_azuread_service_principal" "aks" {
@@ -43,11 +43,11 @@ resource "null_resource" "aadsync_delay" {
 resource "azurerm_kubernetes_cluster" "aks" {
   depends_on = ["null_resource.aadsync_delay"]
 
-  name                = "${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}"
+  name                = "${var.prefix}-k8sbook-${var.chap}-aks-${var.cluster_type}"
   kubernetes_version  = "1.11.5"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
-  dns_prefix          = "${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}"
+  dns_prefix          = "${var.prefix}-k8sbook-${var.chap}-aks-${var.cluster_type}"
 
   agent_pool_profile {
     name            = "default"
@@ -104,8 +104,8 @@ resource "kubernetes_service" "todoapp" {
   }
 }
 
-resource "azurerm_traffic_manager_endpoint" "todoapp-blue" {
-  name                = "${var.prefix}-k8sbook-${var.chap}-todoapp-blue-${var.cluster_type}"
+resource "azurerm_traffic_manager_endpoint" "todoapp" {
+  name                = "${var.prefix}-k8sbook-${var.chap}-todoapp-${var.cluster_type}"
   resource_group_name = "${var.resource_group_name}"
   profile_name        = "${var.traffic_manager_profile_name}"
   target              = "${kubernetes_service.todoapp.load_balancer_ingress.0.ip}"
