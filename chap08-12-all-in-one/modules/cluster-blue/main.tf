@@ -32,7 +32,7 @@ resource "azurerm_azuread_service_principal_password" "aks" {
 resource "null_resource" "aadsync_delay" {
   // Wait for AAD async global replication
   provisioner "local-exec" {
-    command = "sleep 120"
+    command = "sleep 60"
   }
 
   triggers = {

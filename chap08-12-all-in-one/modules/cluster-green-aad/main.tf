@@ -32,7 +32,7 @@ resource "azurerm_azuread_service_principal_password" "aks" {
 resource "null_resource" "aadsync_delay" {
   // Wait for AAD async global replication
   provisioner "local-exec" {
-    command = "sleep 120"
+    command = "sleep 60"
   }
 
   triggers = {
@@ -66,6 +66,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     enabled = true
 
     azure_active_directory {
+      tenant_id         = "${var.aad_ext_tenant_id == "" ? var.aad_tenant_id : var.aad_ext_tenant_id}"
       client_app_id     = "${var.aad_client_app_id}"
       server_app_id     = "${var.aad_server_app_id}"
       server_app_secret = "${var.aad_server_app_secret}"

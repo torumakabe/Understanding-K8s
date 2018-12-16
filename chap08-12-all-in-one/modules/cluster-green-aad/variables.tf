@@ -5,6 +5,7 @@ variable "subscription_id" {}
 variable "resource_group_name" {}
 variable "location" {}
 variable "aad_tenant_id" {}
+variable "aad_ext_tenant_id" {}
 variable "aad_client_app_id" {}
 variable "aad_server_app_id" {}
 variable "aad_server_app_secret" {}

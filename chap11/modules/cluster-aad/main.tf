@@ -51,7 +51,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   agent_pool_profile {
     name            = "default"
-    count           = 1
+    count           = 2
     vm_size         = "Standard_D2s_v3"
     os_type         = "Linux"
     os_disk_size_gb = 30
@@ -64,39 +64,18 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   role_based_access_control {
     enabled = true
+
+    azure_active_directory {
+      tenant_id         = "${var.aad_ext_tenant_id == "" ? var.aad_tenant_id : var.aad_ext_tenant_id}"
+      client_app_id     = "${var.aad_client_app_id}"
+      server_app_id     = "${var.aad_server_app_id}"
+      server_app_secret = "${var.aad_server_app_secret}"
+    }
   }
 
   addon_profile {
     http_application_routing {
       enabled = true
     }
-  }
-}
-
-provider "kubernetes" {
-  load_config_file       = false
-  host                   = "${azurerm_kubernetes_cluster.aks.kube_config.0.host}"
-  client_certificate     = "${base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate)}"
-  client_key             = "${base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.client_key)}"
-  cluster_ca_certificate = "${base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)}"
-}
-
-resource "kubernetes_secret" "cluster_autoscaler" {
-  depends_on = ["azurerm_kubernetes_cluster.aks"]
-
-  metadata {
-    name      = "cluster-autoscaler-azure"
-    namespace = "kube-system"
-  }
-
-  data {
-    ClientID          = "${azurerm_azuread_application.aks.application_id}"
-    ClientSecret      = "${azurerm_azuread_service_principal_password.aks.value}"
-    ResourceGroup     = "${var.resource_group_name}"
-    SubscriptionID    = "${substr(var.subscription_id,15,-1)}"
-    TenantID          = "${var.aad_tenant_id}"
-    VMType            = "AKS"
-    ClusterName       = "${azurerm_kubernetes_cluster.aks.name}"
-    NodeResourceGroup = "${azurerm_kubernetes_cluster.aks.node_resource_group}"
   }
 }

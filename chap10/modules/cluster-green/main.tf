@@ -29,7 +29,20 @@ resource "azurerm_azuread_service_principal_password" "aks" {
   value                = "${random_string.password.result}"
 }
 
+resource "null_resource" "aadsync_delay" {
+  // Wait for AAD async global replication
+  provisioner "local-exec" {
+    command = "sleep 60"
+  }
+
+  triggers = {
+    "before" = "${azurerm_azuread_service_principal_password.aks.id}"
+  }
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
+  depends_on = ["null_resource.aadsync_delay"]
+
   name                = "${var.prefix}-k8sbook-${var.chap}-aks-green-${var.cluster_type}"
   kubernetes_version  = "1.11.5"
   location            = "${var.location}"
