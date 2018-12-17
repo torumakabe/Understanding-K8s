@@ -10,22 +10,29 @@
 
 * Terraformを主に使います
   * Azure関連リソースとKubernetes関連リソースをまとめて作成できることを重視しました
-* TerraformのModuleはコードの再利用に有用です。ですが、Azure、Kubernetes、Terraformそれぞれ進化が早いソフトウェアであるため、新/旧、Blue/Greenクラスターでコードや管理を分けたいこともあります。よってこのサンプルではModuleを使っていません
-* Terraformでの管理単位を、共用リソース(shared)、AKSクラスター(cluster-xxx)、クラスター上のリソース(misc-xxx)で分割しています。ライフサイクルとリスクプロファイルが異なるためです
-  * さらにBlue/Greenクラスターで分割しています
+* Terraformでの管理単位を、共用リソース(shared)、AKSクラスター(cluster-xxx)で分割しています。ライフサイクルとリスクプロファイルが異なるためです
+  * さらに該当する章ではBlue/Greenクラスターで分割しています
+  * deploy/cleanup用 ヘルパーbashスクリプトからTerraformを実行します
 * シークレットは主に環境変数で渡していますが、よりセキュアにするにはAzure Key Vaultもおすすめです
 * サンプルToDoアプリのコンテナーイメージはDocker Hubで公開しています。ソースは[shared/app/todo](https://github.com/ToruMakabe/Understanding-K8s/tree/master/shared/app/todo)にあります
 * 実行方法は各章のREADMEをご覧ください
+* 以下環境でテストしています
+  * Windows Subsystem for Linux (Ubuntu 18.04)
+  * macOS Mojave 10.14.2
+  * Azure CLI 2.0.52
+  * Terraform 0.11.10
 
 ### chap08-12-all-in-one
 
 第3部で説明した環境を全部入りで作成できます。各章で都度環境を作成、削除したくない時はこちらを。
+クラスターが4つ作成されますので、コストやリソース制限にご注意を。
 
 ### chap08
 
-第8章、可用性に関する設計、機能を試すコードです。Blue/Green 2つのクラスターで冗長化します。
+第8章、可用性に関する設計、機能を試すコードです。Primary/Failover 2つのクラスターで冗長化します。
 
-* Blue/Green 2つのAKSクラスター
+* Primary/Failover 2つのAKSクラスター
+* PrimaryとFailoverはリージョンを分けて作成可能
 * 共有リソースとしてAzure Cosmos DBとAzure Traffic Manager
 * サンプルToDoアプリ
 
@@ -39,7 +46,7 @@
 
 ### chap10
 
-第10章、保守性に関する設計、機能を試すコードです。Blue/Green 2つのクラスターで冗長化します。クラスターの作りは8章と同じです。
+第10章、保守性に関する設計、機能を試すコードです。Blue/Green 2つのクラスターで冗長化します。
 
 * Blue/Green 2つのAKSクラスター
 * 共有リソースとしてAzure Cosmos DBとAzure Traffic Manager
@@ -49,7 +56,7 @@
 
 ### chap11
 
-第11章、リソース分離に関する設計、機能を試すコードです。Azure Active Directoryとの認証統合を設定します。
+第11章、リソース分離に関する設計、機能を試すコードです。Azure AD(Active Directory)との認証統合を設定します。Azure AD認証なしの演習オプションも用意しました。
 
 * 1つのAKSクラスター
 * Azure Active Directory統合設定
