@@ -13,7 +13,7 @@ resource "azurerm_azuread_service_principal" "aks" {
 }
 
 resource "azurerm_role_assignment" "aks" {
-  scope                = "${var.subscription_id}"
+  scope                = "${data.azurerm_subscription.current.id}"
   role_definition_name = "Contributor"
   principal_id         = "${azurerm_azuread_service_principal.aks.id}"
 }

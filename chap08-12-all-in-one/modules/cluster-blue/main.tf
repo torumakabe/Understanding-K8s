@@ -13,7 +13,7 @@ resource "azurerm_azuread_service_principal" "aks" {
 }
 
 resource "azurerm_role_assignment" "aks" {
-  scope                = "${var.subscription_id}"
+  scope                = "${data.azurerm_subscription.current.id}"
   role_definition_name = "Contributor"
   principal_id         = "${azurerm_azuread_service_principal.aks.id}"
 }
@@ -225,7 +225,7 @@ resource "kubernetes_secret" "cluster_autoscaler" {
     ClientID          = "${azurerm_azuread_application.aks.application_id}"
     ClientSecret      = "${azurerm_azuread_service_principal_password.aks.value}"
     ResourceGroup     = "${var.resource_group_name}"
-    SubscriptionID    = "${substr(var.subscription_id,15,-1)}"
+    SubscriptionID    = "${substr(data.azurerm_subscription.current.id,15,-1)}"
     TenantID          = "${var.aad_tenant_id}"
     VMType            = "AKS"
     ClusterName       = "${azurerm_kubernetes_cluster.aks.name}"

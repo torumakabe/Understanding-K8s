@@ -16,15 +16,12 @@ provider "azurerm" {
   version = "~>1.20.0"
 }
 
-data "azurerm_subscription" "current" {}
-
 module "primary" {
   source = "../modules/cluster-green"
 
   prefix                              = "${var.k8sbook_prefix}"
   chap                                = "${var.k8sbook_chap}"
   cluster_type                        = "primary"
-  subscription_id                     = "${data.azurerm_subscription.current.id}"
   resource_group_name                 = "${data.terraform_remote_state.shared.resource_group_name}"
   location                            = "${data.terraform_remote_state.shared.resource_group_location}"
   traffic_manager_profile_name        = "${data.terraform_remote_state.shared.traffic_manager_profile_name}"

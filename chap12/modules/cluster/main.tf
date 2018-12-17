@@ -70,5 +70,35 @@ resource "azurerm_kubernetes_cluster" "aks" {
     http_application_routing {
       enabled = true
     }
+
+    oms_agent {
+      enabled                    = true
+      log_analytics_workspace_id = "${var.log_analytics_workspace_id}"
+    }
+  }
+}
+
+resource "azurerm_monitor_metric_alert" "pendning_pods" {
+  name                = "pending_pods_${azurerm_kubernetes_cluster.aks.name}"
+  resource_group_name = "${var.resource_group_name}"
+  scopes              = ["${azurerm_kubernetes_cluster.aks.id}"]
+  description         = "Action will be triggered when pending pods count is greater than 0."
+
+  criteria {
+    metric_namespace = "Microsoft.ContainerService/managedClusters"
+    metric_name      = "kube_pod_status_phase"
+    aggregation      = "Total"
+    operator         = "GreaterThan"
+    threshold        = 0
+
+    dimension {
+      "name"     = "phase"
+      "operator" = "Include"
+      "values"   = ["Pending"]
+    }
+  }
+
+  action {
+    action_group_id = "${var.action_group_id_critical}"
   }
 }
