@@ -10,7 +10,8 @@ terraform init \
     -reconfigure
 
 terraform destroy -auto-approve
+RET=$?
 
 # Delete Resource Group for Remote State
 RESOURCE_GROUP_NAME=${TF_VAR_k8sbook_prefix}-k8sbook-${CHAP}-tfstate-rg
-az group delete -n $RESOURCE_GROUP_NAME -y
+[ ${RET} -eq 0 ] && az group delete -n $RESOURCE_GROUP_NAME -y
