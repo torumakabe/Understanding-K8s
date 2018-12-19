@@ -2,7 +2,22 @@
 
 ## 作成リソース概要
 
-### 図
+![CH08](https://github.com/ToruMakabe/Understanding-K8s/tree/master/pics/ch08.jpg "CH08")
+
+* Shared Group
+  * Resource Group (for Ch08 Resources)
+  * Cosmos DB
+  * Traffic Manager Profile
+  * Storage Account (for Terraform Remote State)
+* Cluster Group
+  * Service Principal (for AKS Cluster)
+    * Role Assignment
+    * Password
+  * AKS Cluster
+    * Sample To-Do Application Service
+    * Sample To-Do Application Deployment
+    * Cosmos DB Secret for Sample To-Do Application
+    * Traffic Manager Endpoint
 
 ## 準備
 
@@ -12,7 +27,7 @@
 cd $YOURCURRENTDIR/chap08
 ```
 
-環境変数を設定するスクリプト(./shared/env/sample_set_env.sh)を編集し、実行します。環境変数にセットしたいため、sourceを忘れずに。
+環境変数を設定するスクリプト(../shared/env/sample_set_env.sh)を編集し、実行します。環境変数にセットしたいため、sourceを忘れずに。
 
 ```
 source ../shared/env/sample_set_env.sh
