@@ -77,7 +77,7 @@ az aks get-credentials -g YOUR-RESOURCE-GROUP -n YOUR-CLUSTER -a -f
 
 ## リソースの削除
 
-演習が終わったら、リソースを削除します。
+演習が終わったら、リソースを削除します。カレントディレクトリはch08/clusterを想定していますが、適宜読み替えてください。
 
 ```
 ./cleanup.sh
