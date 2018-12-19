@@ -2,7 +2,7 @@
 
 ## 作成リソース概要
 
-![CH08](https://github.com/ToruMakabe/Understanding-K8s/tree/master/pics/ch08.jpg "CH08")
+![CH08](https://github.com/ToruMakabe/Understanding-K8s/blob/master/pics/ch08.jpg?raw=true "CH08")
 
 * Shared Group
   * Resource Group (for Ch08 Resources)
@@ -14,10 +14,11 @@
     * Role Assignment
     * Password
   * AKS Cluster
+  * Kubernetes Resources
     * Sample To-Do Application Service
     * Sample To-Do Application Deployment
     * Cosmos DB Secret for Sample To-Do Application
-    * Traffic Manager Endpoint
+  * Traffic Manager Endpoint
 
 ## 準備
 
