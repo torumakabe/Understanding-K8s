@@ -11,7 +11,7 @@
   * Service Principal (for AKS Cluster)
     * Role Assignment
     * Password
-  * AKS Cluster
+  * AKS Cluster * 1
   * Kubernetes Resources
     * Secret for Cluster Autoscaler
 
@@ -23,7 +23,8 @@
 cd $YOURCURRENTDIR/chap09
 ```
 
-環境変数を設定するスクリプト(../shared/env/sample_set_env.sh)を編集し、実行します。環境変数にセットしたいため、sourceを忘れずに。
+環境変数を設定するスクリプト(../shared/env/sample_set_env.sh)を編集します。各変数の詳細はスクリプトに記述しました。
+編集したら、実行します。環境変数にセットしたいため、sourceを忘れずに。
 
 ```
 source ../shared/env/sample_set_env.sh

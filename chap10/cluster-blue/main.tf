@@ -25,7 +25,7 @@ module "primary" {
   resource_group_name                 = "${data.terraform_remote_state.shared.resource_group_name}"
   location                            = "${data.terraform_remote_state.shared.resource_group_location}"
   traffic_manager_profile_name        = "${data.terraform_remote_state.shared.traffic_manager_profile_name}"
-  traffic_manager_endpoint_priority   = 300
+  traffic_manager_endpoint_priority   = 100
   cosmosdb_account_name               = "${data.terraform_remote_state.shared.cosmosdb_account_name}"
   cosmosdb_account_primary_master_key = "${data.terraform_remote_state.shared.cosmosdb_account_primary_master_key}"
 }
