@@ -5,4 +5,3 @@ variable "k8sbook_chap" {
 }
 
 variable "k8sbook_resource_group_location" {}
-variable "k8sbook_aad_userid_1" {}

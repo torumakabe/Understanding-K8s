@@ -13,7 +13,7 @@
   * Service Principal (for AKS Cluster)
     * Role Assignment
     * Password
-  * AKS Cluster * 2
+  * AKS Cluster * 2 (primary/secondary)
   * Kubernetes Resources
     * Sample To-Do Application Service
     * Sample To-Do Application Deployment
@@ -91,3 +91,5 @@ cd ../shared
 * セッション切れや認証トークンの有効期限切れなどでdeploy/cleanupスクリプト実行が途中終了した場合、環境変数を確認のうえ再実行してください
   * 可用性が求められるシステムでは、サーバー上でのTerraform実行をおすすめします
   * Azure VM上では、Azure CLI認証に頼らないAzure Managed Identity認証も可能です
+* サービスプリンシパルのAzure ADリージョン間複製は非同期に行われるため、作成後nullリソースで90秒待っています
+  * もし同期がAKSクラスター作成までに間に合わずエラーになった場合、再実行してください

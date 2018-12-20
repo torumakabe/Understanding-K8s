@@ -8,12 +8,15 @@
 
 ### サンプルの設計方針
 
+![AIO](https://github.com/ToruMakabe/Understanding-K8s/blob/master/pics/ch-aio.jpg?raw=true "AIO")
+
 * Terraformを主に使います
   * Azure関連リソースとKubernetes関連リソースをまとめて作成できることを重視しました
 * Terraformでの管理単位を、共用リソース(shared)、AKSクラスター(cluster-xxx)で分割しています。ライフサイクルとリスクプロファイルが異なるためです
   * さらに該当する章ではBlue/Greenクラスターで分割しています
   * deploy/cleanup用 ヘルパーbashスクリプトからTerraformを実行します
-* シークレットは主に環境変数で渡していますが、よりセキュアにするにはAzure Key Vaultもおすすめです
+* シークレットは主に環境変数で渡しています
+  * よりセキュアにするにはAzure Key Vaultもご検討ください
 * サンプルToDoアプリのコンテナーイメージはDocker Hubで公開しています。ソースは[shared/app/todo](https://github.com/ToruMakabe/Understanding-K8s/tree/master/shared/app/todo)にあります
 * 実行方法は各章のREADMEをご覧ください
 * 以下環境でテストしています

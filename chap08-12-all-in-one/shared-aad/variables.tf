@@ -7,3 +7,4 @@ variable "k8sbook_chap" {
 variable "k8sbook_resource_group_location" {}
 variable "k8sbook_failover_location" {}
 variable "k8sbook_admin_email_address" {}
+variable "k8sbook_aad_userid_1" {}
