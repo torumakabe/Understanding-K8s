@@ -9,11 +9,11 @@
   * Cosmos DB
   * Traffic Manager Profile
   * Storage Account (for Terraform Remote State)
-* Cluster Group
+* Cluster Group *2 (blue/green)
   * Service Principal (for AKS Cluster)
     * Role Assignment
     * Password
-  * AKS Cluster * 2
+  * AKS Cluster
   * Kubernetes Resources
     * Sample To-Do Application Service
     * Sample To-Do Application Deployment
