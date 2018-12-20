@@ -19,7 +19,7 @@ export TF_VAR_k8sbook_aad_tenant_id=$(az account show --query tenantId -o tsv)
 ## 以降、Azure AD認証を試したい場合のみ
 ## まずは次の記事を参考に、Azure AD認証用アプリケーション登録を行ってください (https://docs.microsoft.com/ja-jp/azure/aks/aad-integration)
 
-# Azure AD認証を試したいユーザーのオブジェクトIDを指定します。認証にAKSクラスターが属するものとは別のAzure ADを使いたい場合は、ゲストとしてのオブジェクトIDを指定してください
+# Azure AD認証を試したいユーザーのオブジェクトIDを指定します。認証にAKSクラスターが属するものとは別のAzure ADを使いたい場合はゲスト登録を行い、ゲストとしてのオブジェクトIDを指定してください
 export TF_VAR_k8sbook_aad_userid_1="YOUR AAD USER"
 
 # 認証にAKSクラスターが属するのとは別のAzure ADを使いたい場合は指定します。空にするとAKSクラスターが属するAzure ADテナントが使われます
