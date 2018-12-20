@@ -96,6 +96,7 @@ __このサンプルのTerraformとbashスクリプトは環境変数を使い�
 ## AKSクラスター作成 
 
 作業ディレクトリを chap08-12-all-in-one/cluster-blue もしくは chap08-12-all-in-one/cluster-blue-aad に変更し、クラスター"blue"を作成します。
+
 Kubernetesのバージョンは1.11.5です。chap08-12-all-in-one/modules/cluster-blue もしくは chap08-12-all-in-one/modules/cluster-blue-aad下の main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
 
 ```
@@ -104,6 +105,7 @@ cd ../cluster-blue
 ```
 
 作業ディレクトリを chap08-12-all-in-one/cluster-green もしくは chap08-12-all-in-one/cluster-green-aad に変更し、クラスター"green"を作成します。
+
 Kubernetesのバージョンは1.11.5です。chap08-12-all-in-one/modules/cluster-green もしくは chap08-12-all-in-one/modules/cluster-green-aad下の main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
 10章のテーマの通り、他バージョンに変更してみてください。利用可能なバージョンは以下のコマンドで取得できます。
 
@@ -124,6 +126,7 @@ cd ../cluster-green
 ```
 
 これで環境が作成できました。クラスターを操作するには、各クラスターのcredentialを都度入手してください。~/.kube/configを汚したくない場合は、credentialを-fオプションでファイルに出力できます。
+
 [Azure CLI - az aks get-credentials](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-get-credentials)
 
 ```
@@ -144,6 +147,7 @@ __Azure AD認証クラスターを作成した場合、2018/12/20現在最新の
 
 演習が終わったら、リソースを削除します。カレントディレクトリは chap08-12-all-in-one/cluster-blueを想定していますが、適宜読み替えてください。
 cluster-green-aad、cluster-blue-aad、shared-aadを使った方は、ご注意を。
+
 なお、Azure AD認証クラスターで演習を行った場合、現在Azure CLIでログインしているユーザーを確認してください。TerraformはAzure CLIの認証情報を使います。Azureリソースを操作する権限がないユーザーだと、以降の削除ができません。
 もし権限のないユーザーであれば、az loginで権限のあるユーザーとしてログインし、念のためサブスクリプションを確認してください。
 

@@ -27,6 +27,7 @@ cd $YOURCURRENTDIR/chap12
 ```
 
 環境変数を設定するスクリプト(../shared/env/sample_set_env.sh)を編集します。各変数の詳細はスクリプトに記述しました。
+
 編集したら、実行します。環境変数にセットしたいため、sourceを忘れずに。
 
 ```
@@ -62,6 +63,7 @@ cd ../cluster
 ```
 
 これで環境が作成できました。クラスターを操作するには、各クラスターのcredentialを都度入手してください。~/.kube/configを汚したくない場合は、credentialを-fオプションでファイルに出力できます。
+
 [Azure CLI - az aks get-credentials](https://docs.microsoft.com/en-us/cli/azure/aks?view=azure-cli-latest#az-aks-get-credentials)
 
 ```
