@@ -67,6 +67,7 @@ cd $YOURCURRENTDIR/chap08-12-all-in-one
 
 環境変数を設定するスクリプト(../shared/env/sample_set_env.sh)を編集します。各変数の詳細はスクリプトに記述しました。
 Azure AD認証の有無で設定する変数が変わりますので、ご注意を。
+
 編集したら、実行します。環境変数にセットしたいため、sourceを忘れずに。
 
 ```
