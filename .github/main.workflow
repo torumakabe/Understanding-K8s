@@ -1,6 +1,6 @@
 workflow "Terraform" {
   resolves = "terraform-fmt"
-  on = "pull_request"
+  on = "push"
 }
 
 action "filter-to-pr-open-synced" {
