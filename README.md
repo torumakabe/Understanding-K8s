@@ -12,7 +12,8 @@
 
 * Terraformを主に使います
   * Azure関連リソースとKubernetes関連リソースをまとめて作成できることを重視しました
-* Terraformでの管理単位を、共用リソース(shared)、AKSクラスター(cluster-xxx)で分割しています。ライフサイクルとリスクプロファイルが異なるためです
+* Terraformでの管理単位を、共用リソース(shared)、AKSクラスター(cluster-xxx)で分割しています
+  * ライフサイクルとリスクプロファイルが異なるためです
   * さらに該当する章ではBlue/Greenクラスターで分割しています
   * deploy/cleanup用 ヘルパーbashスクリプトからTerraformを実行します
 * シークレットは主に環境変数で渡しています
