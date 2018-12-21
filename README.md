@@ -18,7 +18,8 @@
   * deploy/cleanup用 ヘルパーbashスクリプトからTerraformを実行します
 * シークレットは主に環境変数で渡しています
   * よりセキュアにするにはAzure Key Vaultもご検討ください
-* サンプルToDoアプリのコンテナーイメージはDocker Hubで公開しています。ソースは[shared/app/todo](https://github.com/ToruMakabe/Understanding-K8s/tree/master/shared/app/todo)にあります
+* サンプルToDoアプリのコンテナーイメージはDocker Hubで公開しています
+  * ソースは[shared/app/todo](https://github.com/ToruMakabe/Understanding-K8s/tree/master/shared/app/todo)にあります
 * 実行方法は各章のREADMEをご覧ください
 * 以下環境でテストしています
   * Windows Subsystem for Linux (Ubuntu 18.04)
