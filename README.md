@@ -13,7 +13,18 @@ $ git clone https://github.com/ToruMakabe/Understanding-K8s
 ---
 
 ## 第1部 導入編
+### chap01
+第1章、コンテナーとKubernetesの概要について説明しています。
 
+※ ここでは、サンプルコードを利用しません。
+
+
+### chap02
+第2章、Kubernetesの環境構築を行う章です。ここでは簡単なPython-FlaskアプリケーションのDockerイメージを作成し、レジストリにビルドします。
+また、3台のワーカーノードからなる構成のクラスタを作成します。
+
+### chap03
+第3章、Kubernetesのチュートリアルを行います。ここでは、サンプルアプリのDockerイメージをKubernetesのクラスタで実行し、動作確認と開発の流れを確認します。
 
 ## 第2部 基本編
 
