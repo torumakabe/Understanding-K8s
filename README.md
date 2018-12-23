@@ -1,6 +1,19 @@
 # [翔泳社 しくみがわかる Kubernetes](https://www.shoeisha.co.jp/book/detail/9784798157849) サンプルコード [工事中]
+このリポジトリは、翔泳社 しくみがわかるKubernetesのサンプルコードです。
+
+![colver](https://www.seshop.com/static/images/product/22378/L.png)
+
+Gitがインストールされた環境で、以下のコマンドを実行し、クローンして利用してください。
+```bash
+$ git clone https://github.com/ToruMakabe/Understanding-K8s
+```
+
+ここでは、サンプルコードの概要について説明します。
+
+---
 
 ## 第1部 導入編
+
 
 ## 第2部 基本編
 
