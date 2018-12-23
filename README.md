@@ -1,5 +1,4 @@
-# [翔泳社 しくみがわかる Kubernetes](https://www.shoeisha.co.jp/book/detail/9784798157849) サンプルコード [工事中]
-このリポジトリは、翔泳社 しくみがわかるKubernetesのサンプルコードです。
+# [翔泳社 しくみがわかる Kubernetes](https://www.shoeisha.co.jp/book/detail/9784798157849) サンプルコード
 
 ![colver](https://www.seshop.com/static/images/product/22378/L.png)
 
@@ -14,7 +13,7 @@ $ git clone https://github.com/ToruMakabe/Understanding-K8s
 
 ## 第1部 導入編
 
-
+ 
 ### chap01
 第1章、コンテナーとKubernetesの概要について説明しています。
 
