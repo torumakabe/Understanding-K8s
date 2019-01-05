@@ -139,11 +139,6 @@ az aks get-credentials -g YOUR-RESOURCE-GROUP -n YOUR-CLUSTER -a -f
 * 書籍の手順を参考に
 * 他章のREADMEを参考に
 
-__Azure AD認証クラスターを作成した場合、2018/12/20現在最新のCluster Autoscaler 1.3.4が動かないため、対応バージョンの1.3.5リリースを待ちましょう__
-
-[Cluster Autoscaler 1.3: fix ServerAppSecret issues for AKS clusters](https://github.com/kubernetes/autoscaler/pull/1415)
-
-
 ## リソースの削除
 
 演習が終わったら、リソースを削除します。カレントディレクトリは chap08-12-all-in-one/cluster-blueを想定していますが、適宜読み替えてください。
