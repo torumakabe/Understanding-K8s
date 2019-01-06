@@ -10,12 +10,22 @@ resource "azurerm_azuread_application" "aks" {
 
 resource "azurerm_azuread_service_principal" "aks" {
   application_id = "${azurerm_azuread_application.aks.application_id}"
+
+  // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
+  provisioner "local-exec" {
+    command = "sleep 30"
+  }
 }
 
 resource "azurerm_role_assignment" "aks" {
   scope                = "${data.azurerm_subscription.current.id}"
   role_definition_name = "Contributor"
   principal_id         = "${azurerm_azuread_service_principal.aks.id}"
+
+  // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
+  provisioner "local-exec" {
+    command = "sleep 30"
+  }
 }
 
 resource "random_string" "password" {
@@ -27,8 +37,14 @@ resource "azurerm_azuread_service_principal_password" "aks" {
   end_date             = "2299-12-30T23:00:00Z"                        # Forever
   service_principal_id = "${azurerm_azuread_service_principal.aks.id}"
   value                = "${random_string.password.result}"
+
+  // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
+  provisioner "local-exec" {
+    command = "sleep 30"
+  }
 }
 
+/*
 resource "null_resource" "aadsync_delay" {
   // Wait for AAD async global replication
   provisioner "local-exec" {
@@ -39,9 +55,10 @@ resource "null_resource" "aadsync_delay" {
     "before" = "${azurerm_azuread_service_principal_password.aks.id}"
   }
 }
+*/
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  depends_on = ["null_resource.aadsync_delay"]
+  //  depends_on = ["null_resource.aadsync_delay"]
 
   name                = "${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}"
   kubernetes_version  = "1.11.5"
