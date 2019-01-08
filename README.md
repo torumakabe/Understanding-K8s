@@ -3,6 +3,7 @@
 ![colver](https://www.seshop.com/static/images/product/22378/L.png)
 
 Gitがインストールされた環境で、以下のコマンドを実行し、クローンして利用してください。
+
 ```bash
 $ git clone https://github.com/ToruMakabe/Understanding-K8s
 ```
@@ -13,32 +14,37 @@ $ git clone https://github.com/ToruMakabe/Understanding-K8s
 
 ## 第1部 導入編
 
- 
 ### chap01
+
 第1章、コンテナーとKubernetesの概要について説明しています。
 
 ※ ここでは、サンプルコードを利用しません。
 
-
 ### chap02
+
 第2章、Kubernetesの環境構築を行う章です。ここでは簡単なPython-FlaskアプリケーションのDockerイメージを作成し、レジストリにビルドします。
 また、3台のワーカーノードからなる構成のクラスタを作成します。
 
 ### chap03
+
 第3章、Kubernetesのチュートリアルを行います。ここでは、サンプルアプリのDockerイメージをKubernetesのクラスタで実行し、動作確認と開発の流れを確認します。
 
 ## 第2部 基本編
 
 ### chap04
+
 第4章、Kubernetesの要点を確認するためのサンプルです。KubernetesのLabelsやマニュフェストの書き方、namespaceによるリソース分離などを確認します。
 
 ### chap05
+
 第5章、コンテナーアプリケーションの実行を確認するためのサンプルです。Pod／ReplidaSetの基本的な動作に加え、 livenessProbe ／ReadinessProbeによるヘルスチェック、水平Podオートスケーラーなどのしくみを確認します。
 
 ### chap06
+
 第6章、Deploymentによるアプリケーションのデプロイを確認するためのサンプルです。バージョンの異なるサンプルアプリケーションイメージを使用してRollingUpdateします。またアプリケーションイメージから設定情報／秘匿情報を分離するためのConfigMapやSecretsの確認も行います。
 
---- 
+---  
+
 ## 第3部 実践編
 
 ### サンプルの設計方針
