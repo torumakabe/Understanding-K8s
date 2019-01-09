@@ -106,6 +106,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
       log_analytics_workspace_id = "${var.log_analytics_workspace_id}"
     }
   }
+
+  lifecycle {
+    // For Cluster Autoscaler
+    ignore_changes = ["agent_pool_profile.0.count"]
+  }
 }
 
 resource "azurerm_monitor_metric_alert" "pendning_pods" {
