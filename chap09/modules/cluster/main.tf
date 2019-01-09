@@ -71,6 +71,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
       enabled = true
     }
   }
+
+  lifecycle {
+    // For Cluster Autoscaler
+    ignore_changes = ["agent_pool_profile.0.count"]
+  }
 }
 
 provider "kubernetes" {
