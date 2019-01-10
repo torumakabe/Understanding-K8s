@@ -66,6 +66,7 @@ resource "azurerm_azuread_service_principal_password" "aks" {
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
+  depends_on          = ["azurerm_role_assignment.aks"]
   name                = "${var.prefix}-k8sbook-${var.chap}-aks-green-${var.cluster_type}"
   kubernetes_version  = "1.11.5"
   location            = "${var.location}"
@@ -82,7 +83,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   service_principal {
     client_id     = "${azurerm_azuread_application.aks.application_id}"
-    client_secret = "${azurerm_azuread_service_principal_password.aks.value}"
+    client_secret = "${random_string.password.result}"
   }
 
   role_based_access_control {
