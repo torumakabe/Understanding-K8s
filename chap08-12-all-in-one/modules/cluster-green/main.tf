@@ -8,14 +8,14 @@ data "azurerm_subscription" "current" {}
 
 resource "azuread_application" "aks" {
   name            = "${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}"
-  identifier_uris = ["http://${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}"]
+  identifier_uris = ["https://${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}"]
 
   // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
   provisioner "local-exec" {
     command = <<EOT
     while :
     do
-        OID=$(az ad app show --id "http://${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}" -o tsv --query objectId)
+        OID=$(az ad app show --id "https://${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}" -o tsv --query objectId)
         if [ -n "$OID" ]; then
             echo "Completed Azure AD Replication (App)"
             break
@@ -36,7 +36,7 @@ resource "azuread_service_principal" "aks" {
     command = <<EOT
     while :
     do
-        SP_OID=$(az ad sp show --id "http://${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}" -o tsv --query objectId)
+        SP_OID=$(az ad sp show --id "https://${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}" -o tsv --query objectId)
         if [ -n "$SP_OID" ]; then
             echo "Completed Azure AD Replication (SP)"
             break
