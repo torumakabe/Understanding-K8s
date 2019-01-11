@@ -122,7 +122,7 @@ resource "kubernetes_secret" "cluster_autoscaler" {
 
   data {
     ClientID          = "${azuread_application.aks.application_id}"
-    ClientSecret      = "${azuread_service_principal_password.aks.value}"
+    ClientSecret      = "${random_string.password.result}"
     ResourceGroup     = "${var.resource_group_name}"
     SubscriptionID    = "${substr(data.azurerm_subscription.current.id,15,-1)}"
     TenantID          = "${var.aad_tenant_id}"
