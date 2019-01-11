@@ -5,11 +5,46 @@ provider "azurerm" {
 data "azurerm_subscription" "current" {}
 
 resource "azurerm_azuread_application" "aks" {
-  name = "${var.prefix}-k8sbook-${var.chap}-sp-aks-${var.cluster_type}"
+  name            = "${var.prefix}-k8sbook-${var.chap}-sp-aks-${var.cluster_type}"
+  identifier_uris = ["http://${var.prefix}-k8sbook-${var.chap}-sp-aks-${var.cluster_type}"]
+
+  // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
+  provisioner "local-exec" {
+    command = <<EOT
+    while :
+    do
+        OID=$(az ad app show --id "http://${var.prefix}-k8sbook-${var.chap}-sp-aks-${var.cluster_type}" -o tsv --query objectId)
+        if [ -n "$OID" ]; then
+            echo "Completed Azure AD Replication (App)"
+            break
+        else
+            echo "Waiting for Azure AD Replication (App)..."
+            sleep 5
+        fi
+    done
+    EOT
+  }
 }
 
 resource "azurerm_azuread_service_principal" "aks" {
   application_id = "${azurerm_azuread_application.aks.application_id}"
+
+  // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
+  provisioner "local-exec" {
+    command = <<EOT
+    while :
+    do
+        SP_OID=$(az ad sp show --id "http://${var.prefix}-k8sbook-${var.chap}-sp-aks-${var.cluster_type}" -o tsv --query objectId)
+        if [ -n "$SP_OID" ]; then
+            echo "Completed Azure AD Replication (SP)"
+            break
+        else
+            echo "Waiting for Azure AD Replication (SP)..."
+            sleep 5
+        fi
+    done
+    EOT
+  }
 }
 
 resource "azurerm_role_assignment" "aks" {
@@ -24,25 +59,14 @@ resource "random_string" "password" {
 }
 
 resource "azurerm_azuread_service_principal_password" "aks" {
+  depends_on           = ["azurerm_role_assignment.aks"]
   end_date             = "2299-12-30T23:00:00Z"                        # Forever
   service_principal_id = "${azurerm_azuread_service_principal.aks.id}"
   value                = "${random_string.password.result}"
 }
 
-resource "null_resource" "aadsync_delay" {
-  // Wait for AAD async global replication
-  provisioner "local-exec" {
-    command = "sleep 90"
-  }
-
-  triggers = {
-    "before" = "${azurerm_azuread_service_principal_password.aks.id}"
-  }
-}
-
 resource "azurerm_kubernetes_cluster" "aks" {
-  depends_on = ["null_resource.aadsync_delay"]
-
+  depends_on          = ["azurerm_role_assignment.aks"]
   name                = "${var.prefix}-k8sbook-${var.chap}-aks-${var.cluster_type}"
   kubernetes_version  = "1.11.5"
   location            = "${var.location}"
@@ -59,7 +83,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   service_principal {
     client_id     = "${azurerm_azuread_application.aks.application_id}"
-    client_secret = "${azurerm_azuread_service_principal_password.aks.value}"
+    client_secret = "${random_string.password.result}"
   }
 
   role_based_access_control {
