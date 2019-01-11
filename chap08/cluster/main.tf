@@ -12,12 +12,6 @@ data "terraform_remote_state" "shared" {
   }
 }
 
-/*
-provider "azurerm" {
-  version = "~>1.20.0"
-}
-*/
-
 module "primary" {
   source = "../modules/cluster"
 
