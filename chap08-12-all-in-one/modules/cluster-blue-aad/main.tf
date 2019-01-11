@@ -2,9 +2,11 @@ provider "azurerm" {
   version = "~>1.20.0"
 }
 
+provider "azuread" {}
+
 data "azurerm_subscription" "current" {}
 
-resource "azurerm_azuread_application" "aks" {
+resource "azuread_application" "aks" {
   name            = "${var.prefix}-k8sbook-${var.chap}-sp-aks-blue-${var.cluster_type}"
   identifier_uris = ["http://${var.prefix}-k8sbook-${var.chap}-sp-aks-blue-${var.cluster_type}"]
 
@@ -26,8 +28,8 @@ resource "azurerm_azuread_application" "aks" {
   }
 }
 
-resource "azurerm_azuread_service_principal" "aks" {
-  application_id = "${azurerm_azuread_application.aks.application_id}"
+resource "azuread_service_principal" "aks" {
+  application_id = "${azuread_application.aks.application_id}"
 
   // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
   provisioner "local-exec" {
@@ -50,7 +52,7 @@ resource "azurerm_azuread_service_principal" "aks" {
 resource "azurerm_role_assignment" "aks" {
   scope                = "${data.azurerm_subscription.current.id}"
   role_definition_name = "Contributor"
-  principal_id         = "${azurerm_azuread_service_principal.aks.id}"
+  principal_id         = "${azuread_service_principal.aks.id}"
 }
 
 resource "random_string" "password" {
@@ -58,10 +60,10 @@ resource "random_string" "password" {
   special = true
 }
 
-resource "azurerm_azuread_service_principal_password" "aks" {
+resource "azuread_service_principal_password" "aks" {
   depends_on           = ["azurerm_role_assignment.aks"]
-  end_date             = "2299-12-30T23:00:00Z"                        # Forever
-  service_principal_id = "${azurerm_azuread_service_principal.aks.id}"
+  end_date             = "2299-12-30T23:00:00Z"                # Forever
+  service_principal_id = "${azuread_service_principal.aks.id}"
   value                = "${random_string.password.result}"
 }
 
@@ -82,7 +84,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   service_principal {
-    client_id     = "${azurerm_azuread_application.aks.application_id}"
+    client_id     = "${azuread_application.aks.application_id}"
     client_secret = "${random_string.password.result}"
   }
 
@@ -258,8 +260,8 @@ resource "kubernetes_secret" "cluster_autoscaler" {
   }
 
   data {
-    ClientID          = "${azurerm_azuread_application.aks.application_id}"
-    ClientSecret      = "${azurerm_azuread_service_principal_password.aks.value}"
+    ClientID          = "${azuread_application.aks.application_id}"
+    ClientSecret      = "${azuread_service_principal_password.aks.value}"
     ResourceGroup     = "${var.resource_group_name}"
     SubscriptionID    = "${substr(data.azurerm_subscription.current.id,15,-1)}"
     TenantID          = "${var.aad_tenant_id}"
