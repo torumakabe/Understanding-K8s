@@ -49,22 +49,58 @@ resource "azuread_service_principal" "aks" {
   }
 }
 
-resource "azurerm_role_assignment" "aks" {
-  scope                = "${data.azurerm_subscription.current.id}"
-  role_definition_name = "Contributor"
-  principal_id         = "${azuread_service_principal.aks.id}"
-}
-
 resource "random_string" "password" {
   length  = 32
   special = true
 }
 
 resource "azuread_service_principal_password" "aks" {
-  depends_on           = ["azurerm_role_assignment.aks"]
   end_date             = "2299-12-30T23:00:00Z"                # Forever
   service_principal_id = "${azuread_service_principal.aks.id}"
   value                = "${random_string.password.result}"
+
+  // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
+  provisioner "local-exec" {
+    command = <<EOT
+    while :
+    do
+        SP_OID=$(az ad sp show --id "https://${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}" -o tsv --query objectId)
+        if [ -n "$SP_OID" ]; then
+            echo "Completed Azure AD Replication (SP Password)"
+            break
+        else
+            echo "Waiting for Azure AD Replication (SP Password)..."
+            sleep 5
+        fi
+    done
+    EOT
+  }
+}
+
+resource "azurerm_role_assignment" "aks" {
+  depends_on           = ["azuread_service_principal_password.aks"]
+  scope                = "${data.azurerm_subscription.current.id}"
+  role_definition_name = "Contributor"
+  principal_id         = "${azuread_service_principal.aks.id}"
+
+  // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
+  provisioner "local-exec" {
+    command = <<EOT
+    while :
+    do
+        ASSIGNMENT=$(az role assignment list --assignee "https://${var.prefix}-k8sbook-${var.chap}-sp-aks-green-${var.cluster_type}" -o tsv --query "[?roleDefinitionName=='Contributor'].name")
+        if [ -n "$ASSIGNMENT" ]; then
+            # Just to be sure...
+            sleep 30
+            echo "Completed Azure AD Replication (Role Assignment)"
+            break
+        else
+            echo "Waiting for Azure AD Replication (Role Assignment)..."
+            sleep 5
+        fi
+    done
+    EOT
+  }
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
