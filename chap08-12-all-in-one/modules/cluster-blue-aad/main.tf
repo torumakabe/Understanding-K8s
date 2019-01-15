@@ -1,8 +1,10 @@
 provider "azurerm" {
-  version = "~>1.21.0"
+  version = "=1.21.0"
 }
 
-provider "azuread" {}
+provider "azuread" {
+  version = "=0.1.0"
+}
 
 data "azurerm_subscription" "current" {}
 
@@ -165,6 +167,7 @@ resource "azurerm_monitor_metric_alert" "pendning_pods" {
 }
 
 provider "kubernetes" {
+  version                = "=1.5.0"
   load_config_file       = false
   host                   = "${azurerm_kubernetes_cluster.aks.kube_admin_config.0.host}"
   client_certificate     = "${base64decode(azurerm_kubernetes_cluster.aks.kube_admin_config.0.client_certificate)}"
