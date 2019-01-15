@@ -84,22 +84,9 @@ resource "azurerm_role_assignment" "aks" {
   principal_id         = "${azuread_service_principal.aks.id}"
 
   // Working around the following issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1635
+  // For AAD global replication
   provisioner "local-exec" {
-    command = <<EOT
-    while :
-    do
-        ASSIGNMENT=$(az role assignment list --assignee "https://${var.prefix}-k8sbook-${var.chap}-sp-aks-blue-${var.cluster_type}" -o tsv --query "[?roleDefinitionName=='Contributor'].name")
-        if [ -n "$ASSIGNMENT" ]; then
-            # Just to be sure...
-            sleep 30
-            echo "Completed Azure AD Replication (Role Assignment)"
-            break
-        else
-            echo "Waiting for Azure AD Replication (Role Assignment)..."
-            sleep 5
-        fi
-    done
-    EOT
+    command = "sleep 30"
   }
 }
 
