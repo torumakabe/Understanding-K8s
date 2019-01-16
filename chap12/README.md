@@ -22,7 +22,7 @@
 
 ## 実行の前に
 
-* prep/deploy/cleanupスクリプト実行が途中終了した場合、環境変数を確認のうえ再実行してください
+* 以下のような理由でprep/deploy/cleanupスクリプト実行が途中終了した場合、環境変数を確認のうえ再実行してください
   * Terraform 既知の不具合
     * [認証トークンのリフレッシュに失敗することがある](https://github.com/terraform-providers/terraform-provider-azurerm/issues/2602)
     * [Azure AD関連リソースの複製を待ちきれない](https://github.com/terraform-providers/terraform-provider-azuread/issues/4)
@@ -32,6 +32,10 @@
       * provisionerに回避ロジックを入れています
         * Terraformから問い合わせを受けるリソースは、Azure CLIでリソース作成完了を確認してから完了
         * Azureのリソースプロバイダーから問い合わせを受けるリソースは、30秒スリープしてから完了
+  * Terraform 実行の中断
+    * 強制停止やキャンセル、ターミナルセッション断など
+  * リソース作成に時間がかかりタイムアウト
+    * Kubernetes Serviceに割り当てるパブリックIPなど
   * ヘルパースクリプト(prep/deploy/cleanup)は再実行できるように作っています
 
 ## 準備
