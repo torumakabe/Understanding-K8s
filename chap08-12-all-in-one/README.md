@@ -1,5 +1,7 @@
 # All in One
 
+設計方針、テスト済み環境はリポジトリ全体の[README](https://github.com/ToruMakabe/Understanding-K8s)をご覧ください。
+
 ## 作成リソース概要
 
 ![AIO](https://github.com/ToruMakabe/Understanding-K8s/blob/master/pics/ch-aio.jpg?raw=true "AIO")
@@ -57,12 +59,26 @@ __8章から12章まですべての演習が可能な環境を作りますが、
   * Traffic Manager Endpoint
   * Metric Alert (Pending Pods)
 
+## 実行の前に
+
+* prep/deploy/cleanupスクリプト実行が途中終了した場合、環境変数を確認のうえ再実行してください
+  * Terraform 既知の不具合
+    * [認証トークンのリフレッシュに失敗することがある](https://github.com/terraform-providers/terraform-provider-azurerm/issues/2602)
+    * [Azure AD関連リソースの複製を待ちきれない](https://github.com/terraform-providers/terraform-provider-azuread/issues/4)
+      * Azure ADの管理オブジェクトはデータセンター間で[非同期に複製](https://docs.microsoft.com/ja-jp/azure/active-directory/fundamentals/active-directory-architecture)されています
+      * 参照はネットワーク的に近いAzure ADへ向かうため、リソース作成直後の問い合わせに複製が間に合わないことがあります
+      * Terraformコミュニティで対処方針は議論中です
+      * provisionerに回避ロジックを入れています
+        * Terraformから問い合わせを受けるリソースは、Azure CLIでリソース作成完了を確認してから完了
+        * Azureのリソースプロバイダーから問い合わせを受けるリソースは、30秒スリープしてから完了
+  * ヘルパースクリプト(prep/deploy/cleanup)は再実行できるように作っています
+
 ## 準備
 
 作業ディレクトリの起点をchap08-12-all-in-oneとします。
 
 ```
-cd $YOURCURRENTDIR/chap08-12-all-in-one
+cd chap08-12-all-in-one
 ```
 
 環境変数を設定するスクリプト(../shared/env/sample_set_env.sh)を編集します。各変数の詳細はスクリプトに記述しました。
@@ -154,11 +170,3 @@ cd ../cluster-green
 cd ../shared
 ./cleanup.sh
 ```
-
-## 補足
-
-* セッション切れや認証トークンの有効期限切れなどでdeploy/cleanupスクリプト実行が途中終了した場合、環境変数を確認のうえ再実行してください
-  * 可用性が求められるシステムでは、サーバー上でのTerraform実行をおすすめします
-  * Azure VM上では、Azure CLI認証に頼らないAzure Managed Identity認証も可能です
-* サービスプリンシパルのAzure ADリージョン間複製は非同期に行われるため、作成後nullリソースで90秒待っています
-  * もし同期がAKSクラスター作成までに間に合わずエラーになった場合、再実行してください
