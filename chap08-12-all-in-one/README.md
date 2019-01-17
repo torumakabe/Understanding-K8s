@@ -24,7 +24,7 @@ __8章から12章まですべての演習が可能な環境を作りますが、
     * Role Assignment
     * Password
   * AKS Cluster * 2 (primary/secondary)
-    * Azure AD Auth Enabled
+    * Azure AD Auth enabled
     * Azure Monitor for Container enabled
   * Kubernetes Resources
     * Sample To-Do Application Service

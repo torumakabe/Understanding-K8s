@@ -17,7 +17,7 @@
     * Role Assignment
     * Password
   * AKS Cluster
-    * Azure AD Auth Enabled
+    * Azure AD Auth enabled
 
 ### Azure AD認証を試さない場合
 
