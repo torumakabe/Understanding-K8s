@@ -32,6 +32,9 @@
       * provisionerに回避ロジックを入れています
         * Terraformから問い合わせを受けるリソースは、Azure CLIでリソース作成完了を確認してから完了
         * Azureのリソースプロバイダーから問い合わせを受けるリソースは、30秒スリープしてから完了
+    * [Cosmos DB削除時のリソース処理考慮漏れ](https://github.com/terraform-providers/terraform-provider-azurerm/pull/2702)
+      * マルチリージョン構成などで、削除に時間がかかった場合に起こることがあります
+      * Cosmos DBアカウントの削除はAzure側で進んでいるため、数分待つ or Azure CLIやポータルでCosmos DBが削除されたのを確認してから再実行してください
   * Terraform 実行の中断
     * 強制停止やキャンセル、ターミナルセッション断など
   * リソース作成に時間がかかりタイムアウト
