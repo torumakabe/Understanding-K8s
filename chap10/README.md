@@ -27,6 +27,7 @@
 * 以下のような理由でprep/deploy/cleanupスクリプト実行が途中終了した場合、環境変数を確認のうえ再実行してください
   * Terraform 既知の不具合
     * [認証トークンのリフレッシュに失敗することがある](https://github.com/terraform-providers/terraform-provider-azurerm/issues/2602)
+      * [go-azure-helpersパッケージの修正で対応予定](https://github.com/hashicorp/go-azure-helpers/issues/22)
     * [Azure AD関連リソースの複製を待ちきれない](https://github.com/terraform-providers/terraform-provider-azuread/issues/4)
       * Azure ADの管理オブジェクトはデータセンター間で[非同期に複製](https://docs.microsoft.com/ja-jp/azure/active-directory/fundamentals/active-directory-architecture)されています
       * 参照はネットワーク的に近いAzure ADへ向かうため、リソース作成直後の問い合わせに複製が間に合わないことがあります
@@ -37,6 +38,7 @@
     * [Cosmos DB削除時のリソース処理考慮漏れ](https://github.com/terraform-providers/terraform-provider-azurerm/pull/2702)
       * マルチリージョン構成などで、削除に時間がかかった場合に起こることがあります
       * Cosmos DBアカウントの削除はAzure側で進んでいるため、数分待つ or Azure CLIやポータルでCosmos DBが削除されたのを確認してから再実行してください
+      * 修正はマージ済みで、Terraform AzureRM Provider v2.0.0でリリース予定
   * Terraform 実行の中断
     * 強制停止やキャンセル、ターミナルセッション断など
   * リソース作成に時間がかかりタイムアウト
