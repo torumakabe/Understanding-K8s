@@ -17,7 +17,7 @@
   * Kubernetes Resources
     * Secret for Cluster Autoscaler
 
-## 実行の前に
+## 注意事項
 
 * マルチリージョン構成などでリソース作成、データ複製に時間がかかった場合、Terraformがそれをうまく扱えずエラーとなることがあります
 * ヘルパースクリプト(prep/deploy/cleanup)は再実行できるように作っています
