@@ -115,3 +115,5 @@ $ git clone https://github.com/ToruMakabe/Understanding-K8s
 
 * 1つのAKSクラスター
 * Azure Monitor関連設定
+
+### <a name ="known_issue">既知の不具合</a>
