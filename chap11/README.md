@@ -38,6 +38,20 @@
 
 [link_known_issue]: https://github.com/ToruMakabe/Understanding-K8s/blob/master/README.md#known_issue
 
+## この章の対象ディレクトリ
+
+.
+├── chap11
+│   ├── README.md (いまここ)
+│   ├── cluster (AKSリソースHCLとヘルパースクリプト)
+│   ├── cluster-aad (AKSリソースHCLとヘルパースクリプト - Azure AD認証)
+│   ├── modules (TerraformモジュールHCL)
+│   ├── shared (chap11共有リソースHCLとヘルパースクリプト)
+│   ├── shared-aad (chap11共有リソースHCLとヘルパースクリプト - Azure AD認証)
+│   └── (Kubernetesマニフェスト)
+└── shared
+    └── env (環境変数設定スクリプト)
+
 ## 準備
 
 作業ディレクトリの起点をchap11とします。

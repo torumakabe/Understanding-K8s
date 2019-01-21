@@ -25,6 +25,18 @@
 
 [link_known_issue]: https://github.com/ToruMakabe/Understanding-K8s/blob/master/README.md#known_issue
 
+## この章の対象ディレクトリ
+
+.
+├── chap09
+│   ├── README.md (いまここ)
+│   ├── cluster (AKSリソースHCLとヘルパースクリプト)
+│   ├── modules (TerraformモジュールHCL)
+│   ├── shared (chap09共有リソースHCLとヘルパースクリプト)
+│   └── (Kubernetesマニフェスト)
+└── shared
+    └── env (環境変数設定スクリプト)
+
 ## 準備
 
 作業ディレクトリの起点をchap09とします。

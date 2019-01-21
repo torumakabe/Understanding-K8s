@@ -30,6 +30,20 @@
 
 [link_known_issue]: https://github.com/ToruMakabe/Understanding-K8s/blob/master/README.md#known_issue
 
+## この章の対象ディレクトリ
+
+.
+├── chap10
+│   ├── README.md (いまここ)
+│   ├── cluster-blue (AKSリソースHCLとヘルパースクリプト - Blue)
+│   ├── cluster-green (AKSリソースHCLとヘルパースクリプト - Green)
+│   ├── modules (TerraformモジュールHCL)
+│   ├── shared (chap10共有リソースHCLとヘルパースクリプト)
+│   └── (Kubernetesマニフェスト)
+└── shared
+    ├── app (サンプルTODOアプリ)
+    └── env (環境変数設定スクリプト)
+
 ## 準備
 
 作業ディレクトリの起点をchap10とします。

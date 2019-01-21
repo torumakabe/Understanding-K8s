@@ -67,6 +67,22 @@ __8章から12章まですべての演習が可能な環境を作りますが、
 
 [link_known_issue]: https://github.com/ToruMakabe/Understanding-K8s/blob/master/README.md#known_issue
 
+## この章の対象ディレクトリ
+
+.
+├── chap08-12-all-in-one
+│   ├── README.md (いまここ)
+│   ├── cluster-blue (AKSリソースHCLとヘルパースクリプト - Blue)
+│   ├── cluster-blue-aad (AKSリソースHCLとヘルパースクリプト - Blue & Azure AD認証)
+│   ├── cluster-green (AKSリソースHCLとヘルパースクリプト - Green)
+│   ├── cluster-green-aad (AKSリソースHCLとヘルパースクリプト - Green & Azure AD認証)
+│   ├── modules (TerraformモジュールHCL)
+│   ├── shared (All in One共有リソースHCLとヘルパースクリプト)
+│   └── shared-aad (All in One共有リソースHCLとヘルパースクリプト - Azure AD認証)
+└── shared
+    ├── app (サンプルTODOアプリ)
+    └── env (環境変数設定スクリプト)
+
 ## 準備
 
 作業ディレクトリの起点をchap08-12-all-in-oneとします。
