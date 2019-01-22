@@ -134,5 +134,5 @@ __以下が原因でエラーとなった場合、ヘルパースクリプト(pr
     * マルチリージョン構成などで、削除に時間がかかった場合に起こることがあります
     * Cosmos DBアカウントの削除はAzure側で進んでいるため、数分待つ or Azure CLIやポータルでCosmos DBが削除されたのを確認してから再実行してください
     * 修正はマージ済みで、Terraform AzureRM Provider v2.0.0でリリース予定
-* Terraformのタイムアウト値が固定で変更できないリソース
+* Terraformのタイムアウト値が短め、かつ固定値にて変更できないリソース
   * Kubernetes Service リソースなど (Load BalancerへのパブリックIP割り当てを待てない)
