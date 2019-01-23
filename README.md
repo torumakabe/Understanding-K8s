@@ -37,7 +37,7 @@ $ git clone https://github.com/ToruMakabe/Understanding-K8s
 
 ### chap05
 
-第5章、コンテナーアプリケーションの実行を確認するためのサンプルです。Pod／ReplidaSetの基本的な動作に加え、 livenessProbe ／ReadinessProbeによるヘルスチェック、水平Podオートスケーラーなどのしくみを確認します。
+第5章、コンテナーアプリケーションの実行を確認するためのサンプルです。Pod／ReplicaSetの基本的な動作に加え、 livenessProbe ／ReadinessProbeによるヘルスチェック、水平Podオートスケーラーなどのしくみを確認します。
 
 ### chap06
 
