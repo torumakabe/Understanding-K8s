@@ -84,7 +84,7 @@ __このサンプルのTerraformとbashスクリプトは環境変数を使い�
 
 作業ディレクトリを chap10/cluster-blue に変更し、クラスター"blue"を作成します。
 
-Kubernetesのバージョンは1.11.5です。chap10/modules/cluster-blue/main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
+Kubernetesのバージョンは 執筆時点で最新の1.11.5としました。chap10/modules/cluster-blue/main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
 
 
 ```
@@ -94,14 +94,14 @@ cd ../cluster-blue
 
 作業ディレクトリを chap10/cluster-green に変更し、クラスター"green"を作成します。
 
-Kubernetesのバージョンは1.11.5です。chap10/modules/cluster-green/main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中でで定義しています。
-この章のテーマの通り、他バージョンに変更してみてください。利用可能なバージョンは以下のコマンドで取得できます。
+Kubernetesのバージョンは執筆時点で最新の1.11.5としました。chap10/modules/cluster-green/main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
+この章のテーマの通り、新バージョンがリリースされたら変更してみてください。利用可能なバージョンは以下のコマンドで取得できます。
 
 ```
 az aks get-versions -l japaneast
 ```
 
-なお、バージョンアップによってTerraform HCLのオプションに変更があるかもしれません。バージョンを上げる場合にはドキュメントを確認しましょう。
+なお、KubernetesのバージョンアップによってTerraform HCLのオプションに変更があるかもしれません。バージョンを上げる場合にはドキュメントを確認しましょう。
 
 [azurerm_kubernetes_cluster](https://www.terraform.io/docs/providers/azurerm/r/kubernetes_cluster.html)
 
