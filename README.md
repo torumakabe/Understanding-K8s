@@ -118,7 +118,7 @@ $ git clone https://github.com/ToruMakabe/Understanding-K8s
 
 ### <a name ="known_issue">既知の不具合</a>
 
-__以下が原因でエラーとなった場合、ヘルパースクリプト(prep/deploy/cleanup)を再実行してください__
+__以下が原因でエラーとなった場合、直前に実行したヘルパースクリプト(prep/deploy/cleanup)を再実行してください__
 
 * Terraform 既知の不具合
   * [認証トークンのリフレッシュに失敗することがある](https://github.com/terraform-providers/terraform-provider-azurerm/issues/2602)
