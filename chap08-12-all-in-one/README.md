@@ -126,7 +126,7 @@ __このサンプルのTerraformとbashスクリプトは環境変数を使い�
 
 作業ディレクトリを chap08-12-all-in-one/cluster-blue もしくは chap08-12-all-in-one/cluster-blue-aad に変更し、クラスター"blue"を作成します。
 
-Kubernetesのバージョンは 執筆時点で最新の1.11.5としました。chap08-12-all-in-on/modules/cluster-blue/main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
+Kubernetesのバージョンは1.11.8としました。chap08-12-all-in-on/modules/cluster-blue/main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
 
 ```
 cd ../cluster-blue
@@ -135,7 +135,7 @@ cd ../cluster-blue
 
 作業ディレクトリを chap08-12-all-in-one/cluster-green もしくは chap08-12-all-in-one/cluster-green-aad に変更し、クラスター"green"を作成します。
 
-Kubernetesのバージョンは執筆時点で最新の1.11.5としました。 chap08-12-all-in-one/modules/cluster-green/main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
+Kubernetesのバージョンは1.11.8としました。 chap08-12-all-in-one/modules/cluster-green/main.tfのリソース "azurerm_kubernetes_cluster" "aks"の中で定義しています。
 10章のテーマの通り、新バージョンがリリースされたら変更してみてください。利用可能なバージョンは以下のコマンドで取得できます。
 
 
