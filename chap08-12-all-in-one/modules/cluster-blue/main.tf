@@ -99,7 +99,7 @@ resource "azurerm_role_assignment" "aks" {
 resource "azurerm_kubernetes_cluster" "aks" {
   depends_on          = ["azurerm_role_assignment.aks"]
   name                = "${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}"
-  kubernetes_version  = "1.11.8"
+  kubernetes_version  = "1.11.9"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
   dns_prefix          = "${var.prefix}-k8sbook-${var.chap}-aks-blue-${var.cluster_type}"
