@@ -4,6 +4,4 @@ variable "k8sbook_chap" {
   default = "ch09"
 }
 
-variable "k8sbook_failover_location" {}
-
 variable "k8sbook_aad_tenant_id" {}
