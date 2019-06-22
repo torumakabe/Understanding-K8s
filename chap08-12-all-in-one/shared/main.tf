@@ -58,7 +58,7 @@ resource "azurerm_log_analytics_workspace" "shared" {
   name                = "${var.k8sbook_prefix}-k8sbook-${var.k8sbook_chap}-workspace"
   location            = "${azurerm_resource_group.shared.location}"
   resource_group_name = "${azurerm_resource_group.shared.name}"
-  sku                 = "Free"
+  sku                 = "PerGB2018"
 }
 
 resource "azurerm_log_analytics_solution" "shared" {
