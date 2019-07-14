@@ -25,11 +25,11 @@ export TF_VAR_k8sbook_aad_userid_1="YOUR AAD USER"
 # 認証にAKSクラスターが属するのとは別のAzure ADを使いたい場合は指定します。空にするとAKSクラスターが属するAzure ADテナントが使われます
 export TF_VAR_k8sbook_aad_ext_tenant_id="YOUR AAD ENTERNAL TENANT ID FOR AAD AUTH"
 
-# AKS認証用 Azure AD サーバーアプリケーションIDを設定してください
+# AKS認証用 Azure AD クライアントアプリケーションIDを設定してください
 export TF_VAR_k8sbook_aad_client_app_id="YOUR AAD CLIENT APP ID FOR AAD AUTH"
 
-# AKS認証用 Azure AD サーバーアプリケーションシークレット(キー)を設定してください
+# AKS認証用 Azure AD サーバーアプリケーションIDを設定してください
 export TF_VAR_k8sbook_aad_server_app_id="YOUR AAD SERVER APP ID FOR AAD AUTH"
 
-# AKS認証用 Azure AD クライアントアプリケーションIDを設定してください
+# AKS認証用 Azure AD サーバーアプリケーションシークレット(キー)を設定してください
 export TF_VAR_k8sbook_aad_server_app_secret="YOUR AAD SERVER APP SECRET FOR AAD AUTH"
