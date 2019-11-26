@@ -109,7 +109,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
     count           = 2
     vm_size         = "Standard_D2s_v3"
     os_type         = "Linux"
-    
   }
 
   service_principal {

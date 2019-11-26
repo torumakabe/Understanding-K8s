@@ -61,7 +61,7 @@ resource "random_string" "password" {
 }
 
 resource "azuread_service_principal_password" "aks" {
-  end_date             = "2299-12-30T23:00:00Z"                # Forever
+  end_date             = "2299-12-30T23:00:00Z" # Forever
   service_principal_id = "${azuread_service_principal.aks.id}"
   value                = "${random_string.password.result}"
 
@@ -105,11 +105,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = "${var.prefix}-k8sbook-${var.chap}-aks-green-${var.cluster_type}"
 
   agent_pool_profile {
-    name            = "default"
-    count           = 2
-    vm_size         = "Standard_D2s_v3"
-    os_type         = "Linux"
-    
+    name    = "default"
+    count   = 2
+    vm_size = "Standard_D2s_v3"
+    os_type = "Linux"
   }
 
   service_principal {
