@@ -119,7 +119,7 @@ az aks get-credentials -g YOUR-RESOURCE-GROUP -n YOUR-CLUSTER -a -f
 
 ## リソースの削除
 
-演習が終わったら、リソースを削除します。カレントディレクトリはch11/clusterを想定していますが、適宜読み替えてください。
+演習が終わったら、リソースを削除します。カレントディレクトリはchap11/clusterを想定していますが、適宜読み替えてください。
 cluster-aad、shared-aadを使った方は、ご注意を。
 
 なお、Azure AD認証クラスターで演習を行った場合、現在Azure CLIでログインしているユーザーを確認してください。TerraformはAzure CLIの認証情報を使います。Azureリソースを操作する権限がないユーザーだと、以降の削除ができません。
