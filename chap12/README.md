@@ -68,7 +68,7 @@ __このサンプルのTerraformとbashスクリプトは環境変数を使い�
 
 ## 共有リソース作成
 
-作業ディレクトリは引き続き chap11/shared もしくは chap11/shared-aad です。
+作業ディレクトリは引き続き chap12/shared です。
 
 共有リソースを作成します。
 
@@ -78,7 +78,7 @@ __このサンプルのTerraformとbashスクリプトは環境変数を使い�
 
 ## AKSクラスター作成
 
-作業ディレクトリを chap11/cluster もしくは chap11/cluster-aad に変更し、クラスターを作成します。
+作業ディレクトリを chap12/cluster に変更し、クラスターを作成します。
 
 ```
 cd ../cluster
@@ -103,7 +103,7 @@ az aks get-credentials -g YOUR-RESOURCE-GROUP -n YOUR-CLUSTER -a -f
 
 ## リソースの削除
 
-演習が終わったら、リソースを削除します。カレントディレクトリはch12/clusterを想定していますが、適宜読み替えてください。
+演習が終わったら、リソースを削除します。カレントディレクトリはchap12/clusterを想定していますが、適宜読み替えてください。
 
 ```
 ./cleanup.sh
